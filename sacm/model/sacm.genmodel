@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/sacm/src-gen" modelPluginID="sacm" modelName="Sacm"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>sacm.ecore</foreignModel>
+  <genPackages prefix="Sacm" basePackage="org.omg" disposableProviderFactory="true"
+      ecorePackage="sacm.ecore#/">
+    <genClasses image="false" ecoreClass="sacm.ecore#//SACMElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//SACMElement/gid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//SACMElement/isCitation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//SACMElement/isAbstract"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference sacm.ecore#//SACMElement/abstractForm"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference sacm.ecore#//SACMElement/citedElement"/>
+    </genClasses>
+    <genClasses ecoreClass="sacm.ecore#//LangString">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//LangString/lang"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//LangString/content"/>
+    </genClasses>
+    <genClasses ecoreClass="sacm.ecore#//ExpressionLangString">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//ExpressionLangString/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="sacm.ecore#//MultiLangString">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//MultiLangString/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="sacm.ecore#//ModelElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//ModelElement/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//ModelElement/implementationConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//ModelElement/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//ModelElement/note"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//ModelElement/taggedValue"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="sacm.ecore#//UtilityElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//UtilityElement/content"/>
+    </genClasses>
+    <genClasses ecoreClass="sacm.ecore#//ImplementationConstraint"/>
+    <genClasses ecoreClass="sacm.ecore#//Description"/>
+    <genClasses image="false" ecoreClass="sacm.ecore#//ArtifactElement"/>
+    <genClasses ecoreClass="sacm.ecore#//Note"/>
+    <genClasses ecoreClass="sacm.ecore#//TaggedValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//TaggedValue/_key"/>
+    </genClasses>
+    <nestedGenPackages prefix="Terminology_" disposableProviderFactory="true" fileExtensions="sacm"
+        ecorePackage="sacm.ecore#//terminology_">
+      <genClasses image="false" ecoreClass="sacm.ecore#//terminology_/TerminologyElement"/>
+      <genClasses ecoreClass="sacm.ecore#//terminology_/TerminologyGroup">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//terminology_/TerminologyGroup/terminologyElement"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//terminology_/TerminologyPackage">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//terminology_/TerminologyPackage/terminologyElement"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//terminology_/TerminologyPackageInterface">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//terminology_/TerminologyPackageInterface/implements"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//terminology_/TerminologyPackageBinding">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//terminology_/TerminologyPackageBinding/participantPackage"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="sacm.ecore#//terminology_/TerminologyAsset"/>
+      <genClasses ecoreClass="sacm.ecore#//terminology_/Category"/>
+      <genClasses image="false" ecoreClass="sacm.ecore#//terminology_/ExpressionElement">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//terminology_/ExpressionElement/value"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//terminology_/ExpressionElement/category"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//terminology_/Expression">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//terminology_/Expression/element"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//terminology_/Term">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//terminology_/Term/externalReference"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//terminology_/Term/origin"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Package" disposableProviderFactory="true" fileExtensions="sacm"
+        ecorePackage="sacm.ecore#//package">
+      <genClasses ecoreClass="sacm.ecore#//package/AssuranceCasePackage">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//package/AssuranceCasePackage/assuranceCasePackage"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//package/AssuranceCasePackage/_interface"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//package/AssuranceCasePackage/artifactPackage"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//package/AssuranceCasePackage/terminologyPackage"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//package/AssuranceCasePackage/argumentPackage"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//package/AssuranceCasePackageInterface">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//package/AssuranceCasePackageInterface/implements"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//package/AssuranceCasePackageBinding">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//package/AssuranceCasePackageBinding/participantPackage"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Artifact_" disposableProviderFactory="true" fileExtensions="sacm"
+        ecorePackage="sacm.ecore#//artifact_">
+      <genClasses ecoreClass="sacm.ecore#//artifact_/ArtifactPackage">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//artifact_/ArtifactPackage/artifactElement"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/ArtifactGroup">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//artifact_/ArtifactGroup/artifactElement"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/ArtifactPackageBinding">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//artifact_/ArtifactPackageBinding/participantPackage"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/ArtifactPackageInterface">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//artifact_/ArtifactPackageInterface/implements"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="sacm.ecore#//artifact_/ArtifactAsset">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//artifact_/ArtifactAsset/_property"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/Artifact">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//artifact_/Artifact/version"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//artifact_/Artifact/date"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/Property"/>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/Event">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//artifact_/Event/date"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/Resource">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//artifact_/Resource/location"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/Activity">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//artifact_/Activity/startTime"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//artifact_/Activity/endTime"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/Technique"/>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/Participant"/>
+      <genClasses ecoreClass="sacm.ecore#//artifact_/ArtifactAssetRelationship">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//artifact_/ArtifactAssetRelationship/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//artifact_/ArtifactAssetRelationship/target"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Argumentation" disposableProviderFactory="true" fileExtensions="sacm"
+        ecorePackage="sacm.ecore#//argumentation">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="sacm.ecore#//argumentation/AssertionDeclaration">
+        <genEnumLiterals ecoreEnumLiteral="sacm.ecore#//argumentation/AssertionDeclaration/asserted"/>
+        <genEnumLiterals ecoreEnumLiteral="sacm.ecore#//argumentation/AssertionDeclaration/needsSupport"/>
+        <genEnumLiterals ecoreEnumLiteral="sacm.ecore#//argumentation/AssertionDeclaration/assumed"/>
+        <genEnumLiterals ecoreEnumLiteral="sacm.ecore#//argumentation/AssertionDeclaration/axiomatic"/>
+        <genEnumLiterals ecoreEnumLiteral="sacm.ecore#//argumentation/AssertionDeclaration/defeated"/>
+        <genEnumLiterals ecoreEnumLiteral="sacm.ecore#//argumentation/AssertionDeclaration/asCited"/>
+      </genEnums>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/ArgumentGroup">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/ArgumentGroup/argumentationElement"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="sacm.ecore#//argumentation/ArgumentationElement"/>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/ArgumentPackage">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//argumentation/ArgumentPackage/argumentationElement"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/ArgumentPackageBinding">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/ArgumentPackageBinding/participantPackage"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/ArgumentPackageInterface">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/ArgumentPackageInterface/implements"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="sacm.ecore#//argumentation/ArgumentAsset">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sacm.ecore#//argumentation/ArgumentAsset/content"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/ArtifactReference">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/ArtifactReference/referencedArtifactElement"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="sacm.ecore#//argumentation/Assertion">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//argumentation/Assertion/assertionDeclaration"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/Assertion/metaClaim"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/Claim"/>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/ArgumentReasoning">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/ArgumentReasoning/structure"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="sacm.ecore#//argumentation/AssertedRelationship">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sacm.ecore#//argumentation/AssertedRelationship/isCounter"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/AssertedRelationship/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/AssertedRelationship/target"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sacm.ecore#//argumentation/AssertedRelationship/reasoning"/>
+      </genClasses>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedInterface"/>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedEvidence"/>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedContext"/>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedArtifactSupport"/>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedArtifactContext"/>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

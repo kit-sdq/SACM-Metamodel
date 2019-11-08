@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="sacm" nsURI="http://www.omg.org/sacm/2.1" nsPrefix="sacm">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="SACMElement" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="isCitedMustBeTrue isAbstractMustBeFalseAndReferedFormMustBeAbstract"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="isCitedMustBeTrue" value="&#xA;&#x9;&#x9;&#x9;(not(self.citedElement = null)) implies (self.citedElement = true)"/>
+      <details key="isAbstractMustBeFalseAndReferedFormMustBeAbstract" value="&#xA;&#x9;&#x9;&#x9;((not(self.abstractForm = null)) implies (self.isAbstract = false)) and&#xA;&#x9;&#x9;&#x9;((not(self.abstractForm = null)) implies (self.abstractForm.isAbstract = true))"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isCitation" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isAbstract" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="abstractForm" eType="#//SACMElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="citedElement" eType="#//SACMElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LangString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressionLangString" eSuperTypes="#//LangString">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" lowerBound="1"
+        eType="#//terminology_/ExpressionElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiLangString" eSuperTypes="#//LangString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="langMustBeUnique"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="langMustBeUnique" value="&#xA;&#x9;&#x9;&#x9;(value.lang -> size()) = (value -> size())"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//LangString" containment="true">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelElement" abstract="true" eSuperTypes="#//SACMElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="implementationConstraintImpliesAbstract"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="implementationConstraintImpliesAbstract" value="&#xA;&#x9;&#x9;&#x9;(self.implementationConstraint->size() > 0) implies (self.isAbstract = true)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//LangString"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implementationConstraint"
+        ordered="false" upperBound="-1" eType="#//ImplementationConstraint" containment="true">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Description"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="note" ordered="false" upperBound="-1"
+        eType="#//Note" containment="true">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="taggedValue" ordered="false"
+        upperBound="-1" eType="#//TaggedValue" containment="true">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UtilityElement" abstract="true" eSuperTypes="#//SACMElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="content" eType="#//MultiLangString"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImplementationConstraint" eSuperTypes="#//UtilityElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Description" eSuperTypes="#//UtilityElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArtifactElement" abstract="true" eSuperTypes="#//SACMElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Note" eSuperTypes="#//UtilityElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TaggedValue" eSuperTypes="#//UtilityElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="_key" eType="#//MultiLangString"
+        containment="true"/>
+  </eClassifiers>
+  <eSubpackages name="terminology_" nsURI="http://www.omg.org/sacm/2.1/terminology"
+      nsPrefix="terminology">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
+    <eClassifiers xsi:type="ecore:EClass" name="TerminologyElement" abstract="true"
+        eSuperTypes="#//ArtifactElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TerminologyGroup" eSuperTypes="#//terminology_/TerminologyElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="terminologyElement" ordered="false"
+          upperBound="-1" eType="#//terminology_/TerminologyElement">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TerminologyPackage" eSuperTypes="#//terminology_/TerminologyElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="terminologyElement" ordered="false"
+          upperBound="-1" eType="#//terminology_/TerminologyElement" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TerminologyPackageInterface" eSuperTypes="#//terminology_/TerminologyElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="implements" lowerBound="1"
+          eType="#//terminology_/TerminologyPackage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TerminologyPackageBinding" eSuperTypes="#//terminology_/TerminologyPackage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="participantPackageShouldBeTerminologyPackageOrTerminologyPackageInterface"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="participantPackageShouldBeTerminologyPackageOrTerminologyPackageInterface"
+            value="&#xA;&#x9;&#x9;&#x9;&#x9;self.participantPackage ->forAll(pp|pp.oclIsKindOf(TerminologyPackage))"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="participantPackage" ordered="false"
+          lowerBound="2" upperBound="-1" eType="#//terminology_/TerminologyPackage">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TerminologyAsset" abstract="true"
+        eSuperTypes="#//terminology_/TerminologyElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Category" eSuperTypes="#//terminology_/TerminologyAsset"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ExpressionElement" abstract="true"
+        eSuperTypes="#//terminology_/TerminologyAsset">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="category" ordered="false"
+          upperBound="-1" eType="#//terminology_/Category">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Expression" eSuperTypes="#//terminology_/ExpressionElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="isNotAbstractImpliesAllElementsAreNotAbstract"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="isNotAbstractImpliesAllElementsAreNotAbstract" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.isAbstract = false implies self.element->forAll(expr|expr.isAbstract = false)"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="element" ordered="false"
+          upperBound="-1" eType="#//terminology_/ExpressionElement">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Term" eSuperTypes="#//terminology_/ExpressionElement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="externalReference" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="origin" eType="#//ModelElement"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="package" nsURI="http://www.omg.org/sacm/2.1/package" nsPrefix="package">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
+    <eClassifiers xsi:type="ecore:EClass" name="AssuranceCasePackage" eSuperTypes="#//ArtifactElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="assuranceCasePackage"
+          ordered="false" upperBound="-1" eType="#//package/AssuranceCasePackage"
+          containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="_interface" ordered="false"
+          upperBound="-1" eType="#//package/AssuranceCasePackageInterface">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="artifactPackage" ordered="false"
+          upperBound="-1" eType="#//artifact_/ArtifactPackage" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="terminologyPackage" ordered="false"
+          upperBound="-1" eType="#//terminology_/TerminologyPackage" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="argumentPackage" ordered="false"
+          upperBound="-1" eType="#//argumentation/ArgumentPackage" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AssuranceCasePackageInterface" eSuperTypes="#//package/AssuranceCasePackage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="assuranceCasePackageCanOnlyContainAssuranceCasePackageInterfaces artifactPackageCanOnlyContainArtifactPackageInterfaces terminologyPackageCanOnlyContainterminologyPackageInterfaces argumentPackageCanOnlyContainArgumentPackageInterfaces"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="assuranceCasePackageCanOnlyContainAssuranceCasePackageInterfaces"
+            value="&#xA;&#x9;&#x9;&#x9;&#x9;self.assuranceCasePackage -> forAll(acp| acp.oclIsTypeOf(AssuranceCasePackageInterface))"/>
+        <details key="artifactPackageCanOnlyContainArtifactPackageInterfaces" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.artifactPackage -> forAll(ap| ap.oclIsTypeOf(artifact_::ArtifactPackageInterface))"/>
+        <details key="terminologyPackageCanOnlyContainterminologyPackageInterfaces"
+            value="&#xA;&#x9;&#x9;&#x9;&#x9;self.terminologyPackage -> forAll(tp| tp.oclIsTypeOf(terminology_::TerminologyPackageInterface))"/>
+        <details key="argumentPackageCanOnlyContainArgumentPackageInterfaces" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.argumentPackage -> forAll(acp| acp.oclIsTypeOf(argumentation::ArgumentPackageInterface))"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="implements" lowerBound="1"
+          eType="#//package/AssuranceCasePackage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AssuranceCasePackageBinding" eSuperTypes="#//package/AssuranceCasePackage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="participantPackageShouldBeAssuranceCasePackageOrAssuranceCasePackageInterface"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="participantPackageShouldBeAssuranceCasePackageOrAssuranceCasePackageInterface"
+            value="&#xA;&#x9;&#x9;&#x9;&#x9;self.participantPackage->forAll(pp|pp.oclIsTypeOf(AssuranceCasePackage) or pp.oclIsTypeOf(AssuranceCasePackageInterface))"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="participantPackage" ordered="false"
+          lowerBound="2" upperBound="-1" eType="#//package/AssuranceCasePackage">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="artifact_" nsURI="http://www.omg.org/sacm/2.1/artifact" nsPrefix="artifact">
+    <eClassifiers xsi:type="ecore:EClass" name="ArtifactPackage" eSuperTypes="#//ArtifactElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="artifactElement" ordered="false"
+          upperBound="-1" eType="#//ArtifactElement" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArtifactGroup" eSuperTypes="#//ArtifactElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="artifactElement" ordered="false"
+          upperBound="-1" eType="#//ArtifactElement" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArtifactPackageBinding" eSuperTypes="#//artifact_/ArtifactPackage">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="participantPackage" ordered="false"
+          lowerBound="2" upperBound="-1" eType="#//artifact_/ArtifactPackage">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArtifactPackageInterface" eSuperTypes="#//artifact_/ArtifactPackage">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="implements" lowerBound="1"
+          eType="#//artifact_/ArtifactPackage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArtifactAsset" abstract="true" eSuperTypes="#//ArtifactElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="_property" ordered="false"
+          upperBound="-1" eType="#//artifact_/Property" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Artifact" eSuperTypes="#//artifact_/ArtifactAsset">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//artifact_/ArtifactAsset"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Event" eSuperTypes="#//artifact_/ArtifactAsset">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Resource" eSuperTypes="#//artifact_/ArtifactAsset">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
+          eType="#//MultiLangString" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Activity" eSuperTypes="#//artifact_/ArtifactAsset">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="startTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="endTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Technique" eSuperTypes="#//artifact_/ArtifactAsset"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Participant" eSuperTypes="#//artifact_/ArtifactAsset"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ArtifactAssetRelationship" eSuperTypes="#//artifact_/ArtifactAsset">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
+          lowerBound="1" upperBound="-1" eType="#//artifact_/ArtifactAsset">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
+          lowerBound="1" upperBound="-1" eType="#//artifact_/ArtifactAsset">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="argumentation" nsURI="http://www.omg.org/sacm/2.1/argumentation"
+      nsPrefix="argumentation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
+    <eClassifiers xsi:type="ecore:EClass" name="ArgumentGroup" eSuperTypes="#//argumentation/ArgumentationElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="argumentationElement"
+          ordered="false" upperBound="-1" eType="#//argumentation/ArgumentationElement">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArgumentationElement" abstract="true"
+        eSuperTypes="#//ArtifactElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ArgumentPackage" eSuperTypes="#//argumentation/ArgumentationElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="ifOneNestedArgumentPackageThenAllElementsAreArgumentPackages"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="ifOneNestedArgumentPackageThenAllElementsAreArgumentPackages"
+            value="&#xA;&#x9;&#x9;&#x9;&#x9;(self.argumentationElement -> exists(e| e.oclIsTypeOf(ArgumentPackage))) implies&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;(self.argumentationElement -> forAll(e| e.oclIsTypeOf(ArgumentPackage)))"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="argumentationElement"
+          ordered="false" upperBound="-1" eType="#//argumentation/ArgumentationElement"
+          containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArgumentPackageBinding" eSuperTypes="#//argumentation/ArgumentPackage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="participantPackageShouldBeArgumentPackages"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="participantPackageShouldBeArgumentPackages" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.participantPackage->forAll(pp|pp.oclIsTypeOf(ArgumentPackage))"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="participantPackage" ordered="false"
+          lowerBound="2" upperBound="-1" eType="#//argumentation/ArgumentPackage">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArgumentPackageInterface" eSuperTypes="#//argumentation/ArgumentPackage">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="implements" lowerBound="1"
+          eType="#//argumentation/ArgumentPackage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArgumentAsset" abstract="true" eSuperTypes="#//argumentation/ArgumentationElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="content" eType="#//MultiLangString"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="AssertionDeclaration">
+      <eLiterals name="asserted"/>
+      <eLiterals name="needsSupport" value="1"/>
+      <eLiterals name="assumed" value="2"/>
+      <eLiterals name="axiomatic" value="3"/>
+      <eLiterals name="defeated" value="4"/>
+      <eLiterals name="asCited" value="5"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ArtifactReference" eSuperTypes="#//argumentation/ArgumentAsset">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="referencedArtifactElement"
+          ordered="false" upperBound="-1" eType="#//ArtifactElement">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Assertion" abstract="true" eSuperTypes="#//argumentation/ArgumentAsset">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="assertionDeclaration"
+          lowerBound="1" eType="#//argumentation/AssertionDeclaration" defaultValueLiteral="asserted"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="metaClaim" ordered="false"
+          upperBound="-1" eType="#//argumentation/Claim">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Claim" eSuperTypes="#//argumentation/Assertion"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ArgumentReasoning" eSuperTypes="#//argumentation/ArgumentAsset">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="structure" eType="#//argumentation/ArgumentPackage"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AssertedRelationship" abstract="true"
+        eSuperTypes="#//argumentation/Assertion">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isCounter" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
+          lowerBound="1" upperBound="-1" eType="#//argumentation/ArgumentAsset">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+          eType="#//argumentation/ArgumentAsset"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reasoning" eType="#//argumentation/ArgumentReasoning"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AssertedInterface" eSuperTypes="#//argumentation/AssertedRelationship"/>
+    <eClassifiers xsi:type="ecore:EClass" name="AssertedEvidence" eSuperTypes="#//argumentation/AssertedRelationship">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="sourceMustBeArtifactReference"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="sourceMustBeArtifactReference" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.source->forAll(s|s.oclIsTypeOf(ArtifactReference))"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AssertedContext" eSuperTypes="#//argumentation/AssertedRelationship"/>
+    <eClassifiers xsi:type="ecore:EClass" name="AssertedArtifactSupport" eSuperTypes="#//argumentation/AssertedRelationship">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="sourceMustBeArtifactReference targetMustBeArtifactReference"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="sourceMustBeArtifactReference" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.source->forAll(s|s.oclIsTypeOf(ArtifactReference))"/>
+        <details key="targetMustBeArtifactReference" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.target->forAll(s|s.oclIsTypeOf(ArtifactReference))"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AssertedArtifactContext" eSuperTypes="#//argumentation/AssertedRelationship">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="sourceMustBeArtifactReference targetMustBeArtifactReference"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="sourceMustBeArtifactReference" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.source->forAll(s|s.oclIsTypeOf(ArtifactReference))"/>
+        <details key="targetMustBeArtifactReference" value="&#xA;&#x9;&#x9;&#x9;&#x9;self.target->forAll(s|s.oclIsTypeOf(ArtifactReference))"/>
+      </eAnnotations>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

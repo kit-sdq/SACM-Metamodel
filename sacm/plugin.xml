@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated sacm -->
+      <package
+            uri="http://www.omg.org/sacm/2.1"
+            class="org.omg.sacm.SacmPackage"
+            genModel="model/sacm.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated sacm -->
+      <package
+            uri="http://www.omg.org/sacm/2.1/terminology"
+            class="org.omg.sacm.terminology_.Terminology_Package"
+            genModel="model/sacm.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated sacm -->
+      <package
+            uri="http://www.omg.org/sacm/2.1/package"
+            class="org.omg.sacm.package_.PackagePackage"
+            genModel="model/sacm.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated sacm -->
+      <package
+            uri="http://www.omg.org/sacm/2.1/artifact"
+            class="org.omg.sacm.artifact_.Artifact_Package"
+            genModel="model/sacm.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated sacm -->
+      <package
+            uri="http://www.omg.org/sacm/2.1/argumentation"
+            class="org.omg.sacm.argumentation.ArgumentationPackage"
+            genModel="model/sacm.genmodel"/>
+   </extension>
+</plugin>
