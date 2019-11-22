@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" name="sacm" version="12.0.0.2017041100">
+  <ownedViewpoints name="Argumentation">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ArgumentationDiagram" domainClass="ArgumentPackage" enablePopupBars="true">
+      <metamodel href="http://www.omg.org/sacm/2.1#/"/>
+      <metamodel href="http://www.omg.org/sacm/2.1#//argumentation"/>
+      <metamodel href="http://www.omg.org/sacm/2.1#//artifact_"/>
+      <metamodel href="http://www.omg.org/sacm/2.1#//package"/>
+      <metamodel href="http://www.omg.org/sacm/2.1#//terminology_"/>
+      <defaultLayer name="Default">
+        <containerMappings name="Claim" domainClass="Claim" childrenPresentation="VerticalStack"/>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="sacm.design.Services"/>
+  </ownedViewpoints>
+</description:Group>
