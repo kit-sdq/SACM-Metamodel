@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" name="sacm" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="sacm" version="12.0.0.2017041100">
   <ownedViewpoints name="Argumentation">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ArgumentationDiagram" domainClass="ArgumentPackage" enablePopupBars="true">
       <metamodel href="http://www.omg.org/sacm/2.1#/"/>
@@ -8,7 +8,135 @@
       <metamodel href="http://www.omg.org/sacm/2.1#//package"/>
       <metamodel href="http://www.omg.org/sacm/2.1#//terminology_"/>
       <defaultLayer name="Default">
-        <containerMappings name="Claim" domainClass="Claim" childrenPresentation="VerticalStack"/>
+        <nodeMappings name="Claim" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editClaim']" domainClass="argumentation::Claim">
+          <style xsi:type="style:BundledImageDescription" labelSize="12" labelExpression="aql:self.content.value->first().content" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_green']"/>
+          </style>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asserted and self.isAbstract">
+            <style xsi:type="style:SquareDescription" borderLineStyle="dash" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" labelPosition="node" width="23" height="14">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::assumed and self.isAbstract">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/abstractAssumedClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::needsSupport and self.isAbstract">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/abstractNeedsSupportClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::axiomatic and self.isAbstract">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/axiomaticClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::defeated and self.isAbstract">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/abstractDefeatedClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asserted">
+            <style xsi:type="style:SquareDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" labelPosition="node" width="23" height="14">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::assumed">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/assumedClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::needsSupport">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/needsSupportClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::axiomatic">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" workspacePath="/sacm.design/images/axiomaticClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::defeated">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/defeatedClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+        </nodeMappings>
+        <edgeMappings name="AssertedRelationship" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="argumentation::AssertedRelationship" useDomainElement="true">
+          <style targetArrow="InputFillClosedArrow" sizeComputationExpression="2" endsCentering="Both">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12" labelExpression="d" iconPath="/sacm.design/images/edgeDecorators/assertedDecorator.svg">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asserted and self.isAbstract">
+            <style lineStyle="dash" targetArrow="InputFillClosedArrow" sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
+        <toolSections name="Claims">
+          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Create a new claim" name="Claim" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::Claim" referenceName="argumentationElement" variableName="claim">
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:claim">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="MultiLangString" referenceName="content" variableName="multiLangString">
+                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:multiLangString">
+                      <subModelOperations xsi:type="tool_1:CreateInstance" typeName="sacm::LangString" referenceName="value" variableName="langString">
+                        <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:langString">
+                          <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="en"/>
+                          <subModelOperations xsi:type="tool_1:SetValue" featureName="content" valueExpression="Statement"/>
+                        </subModelOperations>
+                      </subModelOperations>
+                    </subModelOperations>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="editClaim">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.content.value->first()">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="xxx"/>
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="content" valueExpression="var:0"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="AssertedRelationship" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.eContainer()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::AssertedInference" referenceName="argumentationElement" variableName="assertedInference">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:assertedInference">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="target" valueExpression="var:target"/>
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="source" valueExpression="var:source"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="sacm.design.Services"/>

@@ -189,7 +189,7 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference sacm.ecore#//argumentation/AssertedRelationship/reasoning"/>
       </genClasses>
-      <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedInterface"/>
+      <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedInference"/>
       <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedEvidence"/>
       <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedContext"/>
       <genClasses ecoreClass="sacm.ecore#//argumentation/AssertedArtifactSupport"/>
