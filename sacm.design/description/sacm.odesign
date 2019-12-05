@@ -78,14 +78,11 @@
           </conditionnalStyles>
         </nodeMappings>
         <edgeMappings name="AssertedRelationship" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="argumentation::AssertedRelationship" useDomainElement="true">
-          <style targetArrow="InputFillClosedArrow" sizeComputationExpression="2" endsCentering="Both">
+          <style sizeComputationExpression="2" endsCentering="Both">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <centerLabelStyleDescription labelSize="12" labelExpression="d" iconPath="/sacm.design/images/edgeDecorators/assertedDecorator.svg">
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asserted and self.isAbstract">
-            <style lineStyle="dash" targetArrow="InputFillClosedArrow" sizeComputationExpression="2">
+            <style lineStyle="dash" sizeComputationExpression="2">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
@@ -120,7 +117,9 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="AssertedRelationship" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship']">
+        </toolSections>
+        <toolSections name="Relationships">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedRelationship" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship']">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
