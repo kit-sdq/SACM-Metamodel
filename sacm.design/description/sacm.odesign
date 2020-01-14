@@ -78,10 +78,41 @@
           </conditionnalStyles>
         </nodeMappings>
         <nodeMappings name="AssertedRelationship" domainClass="AssertedRelationship">
-          <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/assertedDecorator.svg">
+          <style xsi:type="style:BundledImageDescription" labelSize="12" labelExpression="aql:self.content.value->first().content" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_green']"/>
           </style>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::needsSupport">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/needsSupportDecorator.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::assumed">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/assumedDecorator.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::axiomatic">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/axiomaticDecorator.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::defeated">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/defeatedDecorator.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asCited">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/asCitedDecorator.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
         </nodeMappings>
         <edgeMappings name="AssertedRelationship_depr" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" useDomainElement="true">
           <style sizeComputationExpression="2" endsCentering="Both">
@@ -226,7 +257,7 @@
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(argumentation::AssertedRelationship) and self.oclAsType(argumentation::AssertedRelationship).isAbstract">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipFromSource']/@style //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']/@style" attributeName="lineStyle" value="dash"/>
           </vsmElementCustomizations>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(argumentation::AssertedInference) or aql:self.oclIsKindOf(argumentation::AssertedEvidence) or aql:self.oclIsKindOf(argumentation::AssertedArtifactSupport)">
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(argumentation::AssertedInference) or self.oclIsKindOf(argumentation::AssertedEvidence) or self.oclIsKindOf(argumentation::AssertedArtifactSupport)">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']/@style" attributeName="targetArrow" value="InputFillClosedArrow"/>
           </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(argumentation::AssertedContext) or self.oclIsKindOf(argumentation::AssertedArtifactContext)">
