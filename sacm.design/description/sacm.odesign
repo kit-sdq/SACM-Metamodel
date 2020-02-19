@@ -8,7 +8,7 @@
       <metamodel href="http://www.omg.org/sacm/2.1#//package"/>
       <metamodel href="http://www.omg.org/sacm/2.1#//terminology_"/>
       <defaultLayer name="Default">
-        <nodeMappings name="Claim" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editClaim']" domainClass="argumentation::Claim">
+        <nodeMappings name="Claim" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editClaim']" semanticCandidatesExpression="feature:eContents" domainClass="argumentation::Claim">
           <style xsi:type="style:BundledImageDescription" labelSize="12" labelExpression="aql:self.content.value->first().content" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -45,6 +45,12 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asCited and self.isAbstract">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/abstractAsCitedClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asserted">
             <style xsi:type="style:SquareDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" labelPosition="node" width="23" height="14">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -76,12 +82,17 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asCited">
+            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.content.value->first().content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/asCitedClaim.svg">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
         </nodeMappings>
-        <nodeMappings name="AssertedRelationship" domainClass="AssertedRelationship">
-          <style xsi:type="style:BundledImageDescription" labelSize="12" labelExpression="aql:self.content.value->first().content" labelPosition="node" resizeKind="NSEW">
+        <nodeMappings name="AssertedRelationship" semanticCandidatesExpression="feature:eContents" domainClass="AssertedRelationship">
+          <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/assertedDecorator.svg">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_green']"/>
           </style>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::needsSupport">
             <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/needsSupportDecorator.svg">
@@ -114,18 +125,8 @@
             </style>
           </conditionnalStyles>
         </nodeMappings>
-        <edgeMappings name="AssertedRelationship_depr" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" useDomainElement="true">
-          <style sizeComputationExpression="2" endsCentering="Both">
-            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-          </style>
-          <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asserted and self.isAbstract">
-            <style lineStyle="dash" sizeComputationExpression="2">
-              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            </style>
-          </conditionnalStyles>
-        </edgeMappings>
         <edgeMappings name="AssertedRelationshipToTarget" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:target">
-          <style targetArrow="InputFillClosedArrow" sizeComputationExpression="2">
+          <style targetArrow="FillDiamond" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription labelSize="12">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -134,6 +135,14 @@
         </edgeMappings>
         <edgeMappings name="AssertedRelationshipFromSource" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:source">
           <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="MetaClain" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:metaClaim">
+          <style sourceArrow="OutputClosedArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription labelSize="12">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -172,7 +181,7 @@
           </ownedTools>
         </toolSections>
         <toolSections name="Relationships">
-          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedInference" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship_depr']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedInference" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipFromSource'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']" iconPath="/sacm.design/images/edgeDecorators/assertedDecorator.png">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -188,7 +197,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedEvidence" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship_depr']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedEvidence">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -204,7 +213,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedContext" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship_depr']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedContext">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -220,7 +229,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedArtifactContext" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship_depr']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedArtifactContext">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -236,7 +245,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedArtifactSupport" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationship_depr']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" documentation="Create a new relationship between two ArgumentAssets" name="AssertedArtifactSupport">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -253,6 +262,10 @@
             </initialOperation>
           </ownedTools>
         </toolSections>
+        <decorationDescriptionsSet>
+          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="ID" position="NORTH_WEST" imageExpression="aql:self.renderTextLabel(self.gid.first(4).concat('..'))" tooltipExpression="aql:self. gid" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']"/>
+          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="CitedID" position="NORTH_WEST" preconditionExpression="aql:self.assertionDeclaration == argumentation::AssertionDeclaration::asCited" imageExpression="aql:self.renderTextLabel('               Cited Package [Cited ID]')" tooltipExpression="Cited Package [Cited ID]" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']"/>
+        </decorationDescriptionsSet>
         <customization>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(argumentation::AssertedRelationship) and self.oclAsType(argumentation::AssertedRelationship).isAbstract">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipFromSource']/@style //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']/@style" attributeName="lineStyle" value="dash"/>
