@@ -23,9 +23,11 @@ import sacm.design.extensions.SacmConstants.ArrowDecoratorType;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConnectionBendpointEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.internal.editpolicies.ConnectionLineSegEditPolicy;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.sirius.diagram.DEdge;
-import org.eclipse.sirius.diagram.EdgeArrows;
+import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.EdgeStyle;
 import org.eclipse.sirius.diagram.impl.DEdgeImpl;
 import org.eclipse.sirius.diagram.ui.edit.api.part.AbstractDiagramEdgeEditPart;
@@ -323,4 +325,11 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
         }
     	*/    	
     }
+
+	public DNode getTargetEditPart() {
+		if (getEdge() instanceof Edge && getEdge().getTarget() instanceof Node)
+			if(getEdge().getTarget().getElement() instanceof DNode)
+				return (DNode) getEdge().getTarget().getElement();
+		return null;
+	}
 }

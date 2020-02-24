@@ -90,38 +90,44 @@
           </conditionnalStyles>
         </nodeMappings>
         <nodeMappings name="AssertedRelationship" semanticCandidatesExpression="feature:eContents" domainClass="AssertedRelationship">
-          <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/assertedDecorator.svg">
+          <style xsi:type="style:EllipseNodeDescription" labelSize="12" showIcon="false" labelExpression="" tooltipExpression="feature:gid" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
           </style>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::needsSupport">
-            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/needsSupportDecorator.svg">
+            <style xsi:type="style:EllipseNodeDescription" labelSize="12" showIcon="false" labelExpression="" tooltipExpression="feature:gid" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::assumed">
-            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/assumedDecorator.svg">
+            <style xsi:type="style:EllipseNodeDescription" labelSize="12" showIcon="false" labelExpression="" tooltipExpression="feature:gid" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::axiomatic">
-            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/axiomaticDecorator.svg">
+            <style xsi:type="style:EllipseNodeDescription" labelSize="12" showIcon="false" labelExpression="" tooltipExpression="feature:gid" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::defeated">
-            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/defeatedDecorator.svg">
+            <style xsi:type="style:EllipseNodeDescription" labelSize="12" showIcon="false" labelExpression="" tooltipExpression="feature:gid" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.assertionDeclaration = argumentation::AssertionDeclaration::asCited">
-            <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" workspacePath="/sacm.design/images/edgeDecorators/asCitedDecorator.svg">
+            <style xsi:type="style:EllipseNodeDescription" labelSize="12" showIcon="false" labelExpression="" tooltipExpression="feature:gid" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
             </style>
           </conditionnalStyles>
         </nodeMappings>
