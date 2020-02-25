@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="sacm" nsURI="http://www.omg.org/sacm/2.1" nsPrefix="sacm">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
   <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
     <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
     <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
@@ -11,7 +14,7 @@
       <details key="constraints" value="isCitedMustBeTrue isAbstractMustBeFalseAndReferedFormMustBeAbstract"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-      <details key="isCitedMustBeTrue" value="&#xA;&#x9;&#x9;&#x9;(not(self.citedElement = null)) implies (self.citedElement = true)"/>
+      <details key="isCitedMustBeTrue" value="&#xA;&#x9;&#x9;&#x9;(self.citedElement &lt;> null) implies (self.isCitation = true)"/>
       <details key="isAbstractMustBeFalseAndReferedFormMustBeAbstract" value="&#xA;&#x9;&#x9;&#x9;((not(self.abstractForm = null)) implies (self.isAbstract = false)) and&#xA;&#x9;&#x9;&#x9;((not(self.abstractForm = null)) implies (self.abstractForm.isAbstract = true))"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"

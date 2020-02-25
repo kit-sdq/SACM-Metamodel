@@ -5,19 +5,21 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolygonDecoration;
-import org.eclipse.draw2d.XYAnchor;
+import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.Request;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.IOvalAnchorableFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+import org.eclipse.gmf.runtime.gef.ui.figures.SlidableOvalAnchor;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.impl.DNodeImpl;
+import org.eclipse.sirius.diagram.ui.business.internal.view.ShowingViewUtil;
 import org.eclipse.sirius.diagram.ui.internal.edit.parts.DNodeEditPart;
 import org.eclipse.sirius.diagram.ui.tools.api.figure.FoldingToggleAwareClippingStrategy;
 import org.eclipse.sirius.diagram.ui.tools.api.figure.FoldingToggleImageFigure;
@@ -97,39 +99,8 @@ public class CustomRelationshipNode extends DNodeEditPart{
 	
 	 @Override
     protected NodeFigure createNodeFigure() {
-		//final PointList list = createRelationshipShape();
 		 
-        DBorderedNodeFigure nodeFigure = new DBorderedNodeFigure(createMainFigure()) {
-        	//final PointList shape = list;
-        	
-        	@Override
-    	    public void paint(Graphics graphics) {
-    			if (getLocalBackgroundColor() != null)
-    				graphics.setBackgroundColor(getLocalBackgroundColor());
-    			if (getLocalForegroundColor() != null)
-    				graphics.setForegroundColor(getLocalForegroundColor());
-    			if (font != null)
-    				graphics.setFont(font);
-
-    			graphics.pushState();
-    			try {
-    				paintRotatedClientArea(graphics);
-    				//paintFigure(graphics);
-    				graphics.restoreState();    				
-    				//paintClientArea(graphics);
-    				//paintBorder(graphics);
-    			} finally {
-    				graphics.popState();
-    			}
-    	    }
-
-			private void paintRotatedClientArea(Graphics graphics) {
-				graphics.setBackgroundColor(ColorConstants.black);
-				graphics.setForegroundColor(ColorConstants.black);
-				Rectangle area = getClientArea();
-				paintRotatedRelationship(graphics, area);
-			}
-        };
+		 DBorderedNodeFigure nodeFigure = new OvalBorderedNodeFigure(createMainFigure());
         nodeFigure.getBorderItemContainer().add(new FoldingToggleImageFigure(this));
         nodeFigure.getBorderItemContainer().setClippingStrategy(new FoldingToggleAwareClippingStrategy());
         return nodeFigure;
@@ -144,13 +115,16 @@ public class CustomRelationshipNode extends DNodeEditPart{
 			paintAssumed(graphics, area);
 			break;
 		case AS_CITED:
+			paintAsCited(graphics, area);
 			break;
 		case AXIOMATIC:
+			paintDefeated(graphics, area);
 			break;
 		case DEFEATED:
 			paintDefeated(graphics, area);
 			break;
 		case NEEDS_SUPPORT:
+			paintDefeated(graphics, area);
 			break;
 		default:
 			break;
@@ -159,7 +133,6 @@ public class CustomRelationshipNode extends DNodeEditPart{
 	}
 
 	private void paintDefeated(Graphics graphics, Rectangle area) {
-		graphics.pushState();
 		graphics.setBackgroundColor(ColorConstants.black);
 		graphics.setForegroundColor(ColorConstants.black);
 		graphics.setLineWidth(2);
@@ -167,7 +140,7 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		int diameter = (int)(Math.min(area.width, area.height));
 		double sqrt_diameter = Math.sqrt(Math.PI*diameter);
 		
-		graphics.translate(center);		
+		graphics.translate(center);
 		PolygonDecoration shape = new PolygonDecoration();
 		shape.setTemplate(createPointList(
 			new PrecisionPoint(-sqrt_diameter, -sqrt_diameter),
@@ -181,7 +154,7 @@ public class CustomRelationshipNode extends DNodeEditPart{
 			));
 		shape.setScale(1, 1);
 		Point p = determineTargetDirection();
-		shape.setReferencePoint(new Point(p.y - area.y, p.x - area.x));		
+		shape.setReferencePoint(new Point(p.x - area.x, p.y - area.y));
 		//shape.setLocation(new Point(area.x, area.y));//;new Point(center.x - diameter/2, center.y - diameter/2));
 		shape.paint(graphics);
 	}
@@ -200,16 +173,51 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		return new Point(0,0);
 	}
 
-	private void paintAsserted(Graphics graphics, Rectangle area) {
+	private void paintAsserted(Graphics graphics, Rectangle area) {		
 		int diameter = (int)(Math.min(area.width, area.height)/1.5);
 		Point center = area.getCenter();
 		graphics.fillOval(center.x - diameter/2, center.y - diameter/2, diameter, diameter);
 	}
 	
 	private void paintAssumed(Graphics graphics, Rectangle area) {
-		int diameter = (int)(Math.min(area.width, area.height)/1.5);
-		Point center = area.getCenter();
-		graphics.fillOval(center.x - diameter/2, center.y - diameter/2, diameter, diameter);
+		
+	}
+	
+	private void paintAsCited(Graphics graphics, Rectangle area) {
+		graphics.translate(area.getCenter());
+		
+		PolylineDecoration[] shape = new PolylineDecoration[3];
+		shape[0] = new PolylineDecoration();
+		shape[0].setScale(4, 4);
+		shape[0].setLineWidth(2);
+		shape[0].setTemplate(createPointList(
+				new Point(-2, 1),
+				new Point(-2, 3),
+				new Point(2, 3),
+				new Point(2, 1)
+				));
+		
+		shape[1] = new PolylineDecoration();
+		shape[1].setScale(4, 4);
+		shape[1].setLineWidth(2);
+		shape[1].setTemplate(createPointList(
+				new Point(-2, 0),
+				new Point(2, 0)
+				));
+		
+		shape[2] = new PolylineDecoration();
+		shape[2].setScale(4, 4);
+		shape[2].setLineWidth(2);
+		shape[2].setTemplate(createPointList(
+				new Point(-2, -1),
+				new Point(-2, -3),
+				new Point(2, -3),
+				new Point(2, -1)
+				));
+		
+		shape[0].paint(graphics);
+		shape[1].paint(graphics);
+		shape[2].paint(graphics);
 	}
 	
 	private PointList createPointList(Point... points) {
@@ -218,37 +226,58 @@ public class CustomRelationshipNode extends DNodeEditPart{
 			list.addPoint(p);
 		return list;
 	}
-
-	private PolygonDecoration createRelationshipShape(Rectangle area) {
-    	PolygonDecoration shape = new PolygonDecoration();
-    	PointList pointList = new PointList(4);
-		pointList.addPoint(-1,-1);
-		pointList.addPoint(-1,1);
-		pointList.addPoint(1,1);
-		pointList.addPoint(1,-1);
-    	shape.setTemplate(pointList);
-    	shape.setScale(4, 4);
-    	
-    	PolygonDecoration shape2 = new PolygonDecoration();
-    	pointList = new PointList(4);
-		pointList.addPoint(-2,-2);
-		pointList.addPoint(-2,0);
-		pointList.addPoint(0,0);
-		pointList.addPoint(0,-2);
-    	shape2.setTemplate(pointList);
-    	shape2.setScale(4, 4);
-    	shape.add(shape2);
-    	
-		return shape;
-	}
-
-	@Override
-    public ConnectionAnchor getTargetConnectionAnchor(final Request request) {
-		return new XYAnchor(this.getBorderedFigure().getBounds().getCenter());
-    }
 	
-	@Override
-    public ConnectionAnchor getSourceConnectionAnchor(final Request request) {
-		return new XYAnchor(this.getBorderedFigure().getBounds().getCenter());        
-    }
+	class OvalBorderedNodeFigure extends DBorderedNodeFigure implements IOvalAnchorableFigure {
+
+		public OvalBorderedNodeFigure(IFigure mainFigure) {
+			super(mainFigure);
+		}
+
+		@Override
+		public Rectangle getOvalBounds() {
+			return getBounds();
+		}
+		
+		@Override
+	    public void paint(Graphics graphics) {
+    		ShowingViewUtil.initGraphicsForVisibleAndInvisibleElements(this, graphics, (View) getModel());
+			if (getLocalBackgroundColor() != null)
+				graphics.setBackgroundColor(getLocalBackgroundColor());
+			if (getLocalForegroundColor() != null)
+				graphics.setForegroundColor(getLocalForegroundColor());
+			if (font != null)
+				graphics.setFont(font);
+
+			
+			try {
+				paintRotatedClientArea(graphics);
+				//paintFigure(graphics);
+				graphics.restoreState();    				
+				//paintClientArea(graphics);
+				//paintBorder(graphics);
+			} finally {
+				graphics.popState();
+			}
+	    }
+
+		private void paintRotatedClientArea(Graphics graphics) {
+			graphics.setBackgroundColor(ColorConstants.black);
+			graphics.setForegroundColor(ColorConstants.black);
+			Rectangle area = getClientArea();
+			paintRotatedRelationship(graphics, area);
+		}
+		
+		@Override
+		protected ConnectionAnchor createConnectionAnchor(Point p) {
+			Point temp = p.getCopy();
+			translateToRelative(temp);
+			return new SlidableOvalAnchor(this, SlidableOvalAnchor.getAnchorRelativeLocation(p, bounds));			
+		}
+		
+		@Override
+		public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
+			return createConnectionAnchor(p);
+		}
+		
+	}
 }
