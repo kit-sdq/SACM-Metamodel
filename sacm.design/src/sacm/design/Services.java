@@ -5,20 +5,23 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.sirius.diagram.impl.DNodeImpl;
+import org.omg.sacm.argumentation.AssertedRelationship;
 
 /**
  * The services class used by VSM.
  */
 public class Services {
-
-	/**
-	 * See
-	 * http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.sirius.doc%2Fdoc%2Findex.html&cp=24
-	 * for documentation on how to write service methods.
-	 */
-	public EObject myService(EObject self, String arg) {
-		// TODO Auto-generated code
-		return self;
+	
+	public EObject extractSource(EObject self, EObject sourceView) {
+		if(sourceView instanceof DNodeImpl) {
+			return ((DNodeImpl) sourceView).getTarget();
+		}
+		return null;
+	}
+	
+	public void removeFromSources(AssertedRelationship self, EObject element) {
+		self.getSource().remove(element);
 	}
 
 	public IFigure renderTextLabel(EObject self, String text) {
