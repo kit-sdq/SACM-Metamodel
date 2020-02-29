@@ -66,7 +66,7 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
     	if (source instanceof AssertedRelationship && target instanceof Assertion) {
     		AssertedRelationship rel = (AssertedRelationship)source;
     		Assertion partner = (Assertion) target;
-    		if (rel.getTarget().getGid().equals(partner.getGid())) {
+    		if (rel.getTarget() != null && rel.getTarget().getGid().equals(partner.getGid())) {
     			if (rel instanceof AssertedContext || rel instanceof AssertedArtifactSupport) {
     				targetDecorationType = (rel.isIsCounter()) ?
     					ArrowDecoratorType.CONTEXT_OUTLINE :

@@ -139,7 +139,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="AssertedRelationshipFromSource" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='RemoveSource']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetFinderExpression="feature:source" reconnections="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='ReconnectSource']">
+        <edgeMappings name="AssertedRelationshipFromSource" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='RemoveSource']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetFinderExpression="aql:self.eContainer().eContents()->select(s|s.oclIsKindOf(argumentation::AssertedRelationship))->select(s|s.source->includes(self))" reconnections="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='ReconnectSource']">
           <style targetArrow="NoDecoration" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -261,9 +261,9 @@
             <containerView name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:elementView">
-                <subModelOperations xsi:type="tool_1:Let" variableName="sourceInstance" valueExpression="aql:self.extractSource(self.targetNode).oclAsType(argumentation::Claim)">
-                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
-                    <subModelOperations xsi:type="tool_1:Let" valueExpression="aql:self.removeFromSources(sourceInstance)"/>
+                <subModelOperations xsi:type="tool_1:Let" variableName="targetInstance" valueExpression="aql:self.extractTarget(elementView.targetNode)">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:targetInstance">
+                    <subModelOperations xsi:type="tool_1:Let" valueExpression="aql:self.removeFromSources(element)"/>
                   </subModelOperations>
                 </subModelOperations>
               </firstModelOperations>

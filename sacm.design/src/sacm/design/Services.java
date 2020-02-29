@@ -20,6 +20,13 @@ public class Services {
 		return null;
 	}
 	
+	public EObject extractTarget(EObject self, EObject targetView) {
+		if(targetView instanceof DNodeImpl) {
+			return ((DNodeImpl) targetView).getTarget();
+		}
+		return null;
+	}
+	
 	public void removeFromSources(AssertedRelationship self, EObject element) {
 		self.getSource().remove(element);
 	}

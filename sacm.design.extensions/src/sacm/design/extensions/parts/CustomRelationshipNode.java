@@ -6,15 +6,16 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.XYAnchor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.IOvalAnchorableFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.gef.ui.figures.SlidableOvalAnchor;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DNode;
@@ -98,9 +99,8 @@ public class CustomRelationshipNode extends DNodeEditPart{
     }
 	
 	 @Override
-    protected NodeFigure createNodeFigure() {
-		 
-		 DBorderedNodeFigure nodeFigure = new OvalBorderedNodeFigure(createMainFigure());
+    protected NodeFigure createNodeFigure() {		 
+		DBorderedNodeFigure nodeFigure = new OvalBorderedNodeFigure(createMainFigure());
         nodeFigure.getBorderItemContainer().add(new FoldingToggleImageFigure(this));
         nodeFigure.getBorderItemContainer().setClippingStrategy(new FoldingToggleAwareClippingStrategy());
         return nodeFigure;
@@ -155,11 +155,10 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		shape.setScale(1, 1);
 		Point p = determineTargetDirection();
 		shape.setReferencePoint(new Point(p.x - area.x, p.y - area.y));
-		//shape.setLocation(new Point(area.x, area.y));//;new Point(center.x - diameter/2, center.y - diameter/2));
 		shape.paint(graphics);
 	}
 
-	private Point determineTargetDirection() {
+	public Point determineTargetDirection() {
 		if(sourceConnections != null) {
 			for (Object o : sourceConnections) {
 				if (o instanceof CustomEdge) {
@@ -184,11 +183,16 @@ public class CustomRelationshipNode extends DNodeEditPart{
 	}
 	
 	private void paintAsCited(Graphics graphics, Rectangle area) {
+		//FigureSize width = 4 + lineWidth; height = 6 + lineWidth
+		// => outer_diameter = sqrt(width^2 + height^2) = 10 => scale according to height
+		double scaling = Math.min(area.width, area.height)/10;
 		graphics.translate(area.getCenter());
+		Point direction = determineTargetDirection().getTranslated(area.getCenter().negate());
 		
 		PolylineDecoration[] shape = new PolylineDecoration[3];
 		shape[0] = new PolylineDecoration();
-		shape[0].setScale(4, 4);
+		shape[0].setReferencePoint(direction);
+		shape[0].setScale(scaling, scaling);
 		shape[0].setLineWidth(2);
 		shape[0].setTemplate(createPointList(
 				new Point(-2, 1),
@@ -198,7 +202,8 @@ public class CustomRelationshipNode extends DNodeEditPart{
 				));
 		
 		shape[1] = new PolylineDecoration();
-		shape[1].setScale(4, 4);
+		shape[1].setScale(scaling, scaling);
+		shape[1].setReferencePoint(direction);
 		shape[1].setLineWidth(2);
 		shape[1].setTemplate(createPointList(
 				new Point(-2, 0),
@@ -206,14 +211,15 @@ public class CustomRelationshipNode extends DNodeEditPart{
 				));
 		
 		shape[2] = new PolylineDecoration();
-		shape[2].setScale(4, 4);
+		shape[2].setScale(scaling, scaling);
+		shape[2].setReferencePoint(direction);
 		shape[2].setLineWidth(2);
 		shape[2].setTemplate(createPointList(
 				new Point(-2, -1),
 				new Point(-2, -3),
 				new Point(2, -3),
 				new Point(2, -1)
-				));
+				));	
 		
 		shape[0].paint(graphics);
 		shape[1].paint(graphics);
@@ -225,6 +231,16 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		for(Point p : points)
 			list.addPoint(p);
 		return list;
+	}
+	
+	@Override
+	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connEditPart) {
+		return new CustomRelationshipAnchor(getNodeFigure(), true, this);
+	}
+	
+	@Override
+	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connEditPart) {
+		return new CustomRelationshipAnchor(getNodeFigure(), false, this);
 	}
 	
 	class OvalBorderedNodeFigure extends DBorderedNodeFigure implements IOvalAnchorableFigure {
@@ -271,7 +287,7 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		protected ConnectionAnchor createConnectionAnchor(Point p) {
 			Point temp = p.getCopy();
 			translateToRelative(temp);
-			return new SlidableOvalAnchor(this, SlidableOvalAnchor.getAnchorRelativeLocation(p, bounds));			
+			return new XYAnchor(getLocation());
 		}
 		
 		@Override
