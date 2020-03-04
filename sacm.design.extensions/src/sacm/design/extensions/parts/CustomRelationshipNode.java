@@ -4,12 +4,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PolygonDecoration;
-import org.eclipse.draw2d.PolylineDecoration;
-import org.eclipse.draw2d.XYAnchor;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
@@ -33,6 +28,9 @@ import org.eclipse.sirius.viewpoint.DStylizable;
 import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
 import org.omg.sacm.argumentation.AssertionDeclaration;
+
+import sacm.design.extensions.parts.shapes.RelationshipShape;
+import sacm.design.extensions.parts.shapes.RelationshipShapeFactory;
 
 
 @SuppressWarnings("restriction")
@@ -107,55 +105,8 @@ public class CustomRelationshipNode extends DNodeEditPart{
     }
 
     protected void paintRotatedRelationship(Graphics graphics, Rectangle area) {
-		switch (getAssertionDeclaration()) {
-		case ASSERTED:
-			paintAsserted(graphics, area);
-			break;
-		case ASSUMED:
-			paintAssumed(graphics, area);
-			break;
-		case AS_CITED:
-			paintAsCited(graphics, area);
-			break;
-		case AXIOMATIC:
-			paintDefeated(graphics, area);
-			break;
-		case DEFEATED:
-			paintDefeated(graphics, area);
-			break;
-		case NEEDS_SUPPORT:
-			paintDefeated(graphics, area);
-			break;
-		default:
-			break;
-		}
-		
-	}
-
-	private void paintDefeated(Graphics graphics, Rectangle area) {
-		graphics.setBackgroundColor(ColorConstants.black);
-		graphics.setForegroundColor(ColorConstants.black);
-		graphics.setLineWidth(2);
-		Point center = area.getCenter();
-		int diameter = (int)(Math.min(area.width, area.height));
-		double sqrt_diameter = Math.sqrt(Math.PI*diameter);
-		
-		graphics.translate(center);
-		PolygonDecoration shape = new PolygonDecoration();
-		shape.setTemplate(createPointList(
-			new PrecisionPoint(-sqrt_diameter, -sqrt_diameter),
-			new Point(0,0),
-			new PrecisionPoint(+sqrt_diameter, +sqrt_diameter),
-			new Point(0,0),
-			new PrecisionPoint(+sqrt_diameter, -sqrt_diameter),
-			new Point(0,0),
-			new PrecisionPoint(-sqrt_diameter, +sqrt_diameter),
-			new Point(0,0)
-			));
-		shape.setScale(1, 1);
-		Point p = determineTargetDirection();
-		shape.setReferencePoint(new Point(p.x - area.x, p.y - area.y));
-		shape.paint(graphics);
+    	RelationshipShape s = RelationshipShapeFactory.INSTANCE.getRelationshipShape(getAssertionDeclaration());
+    	s.paint(graphics, area, determineTargetDirection());		
 	}
 
 	public Point determineTargetDirection() {
@@ -171,67 +122,6 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		}
 		return new Point(0,0);
 	}
-
-	private void paintAsserted(Graphics graphics, Rectangle area) {		
-		int diameter = (int)(Math.min(area.width, area.height)/1.5);
-		Point center = area.getCenter();
-		graphics.fillOval(center.x - diameter/2, center.y - diameter/2, diameter, diameter);
-	}
-	
-	private void paintAssumed(Graphics graphics, Rectangle area) {
-		
-	}
-	
-	private void paintAsCited(Graphics graphics, Rectangle area) {
-		//FigureSize width = 4 + lineWidth; height = 6 + lineWidth
-		// => outer_diameter = sqrt(width^2 + height^2) = 10 => scale according to height
-		double scaling = Math.min(area.width, area.height)/10;
-		graphics.translate(area.getCenter());
-		Point direction = determineTargetDirection().getTranslated(area.getCenter().negate());
-		
-		PolylineDecoration[] shape = new PolylineDecoration[3];
-		shape[0] = new PolylineDecoration();
-		shape[0].setReferencePoint(direction);
-		shape[0].setScale(scaling, scaling);
-		shape[0].setLineWidth(2);
-		shape[0].setTemplate(createPointList(
-				new Point(-2, 1),
-				new Point(-2, 3),
-				new Point(2, 3),
-				new Point(2, 1)
-				));
-		
-		shape[1] = new PolylineDecoration();
-		shape[1].setScale(scaling, scaling);
-		shape[1].setReferencePoint(direction);
-		shape[1].setLineWidth(2);
-		shape[1].setTemplate(createPointList(
-				new Point(-2, 0),
-				new Point(2, 0)
-				));
-		
-		shape[2] = new PolylineDecoration();
-		shape[2].setScale(scaling, scaling);
-		shape[2].setReferencePoint(direction);
-		shape[2].setLineWidth(2);
-		shape[2].setTemplate(createPointList(
-				new Point(-2, -1),
-				new Point(-2, -3),
-				new Point(2, -3),
-				new Point(2, -1)
-				));	
-		
-		shape[0].paint(graphics);
-		shape[1].paint(graphics);
-		shape[2].paint(graphics);
-	}
-	
-	private PointList createPointList(Point... points) {
-		PointList list = new PointList(points.length);
-		for(Point p : points)
-			list.addPoint(p);
-		return list;
-	}
 	
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connEditPart) {
@@ -242,6 +132,16 @@ public class CustomRelationshipNode extends DNodeEditPart{
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connEditPart) {
 		return new CustomRelationshipAnchor(getNodeFigure(), false, this);
 	}
+	
+	@Override
+	public ConnectionAnchor getTargetConnectionAnchor(org.eclipse.gef.Request request) {
+		return new CustomRelationshipAnchor(getNodeFigure(), false, this);
+	};
+	
+	@Override
+	public ConnectionAnchor getSourceConnectionAnchor(org.eclipse.gef.Request request) {
+		return new CustomRelationshipAnchor(getNodeFigure(), true, this);
+	};
 	
 	class OvalBorderedNodeFigure extends DBorderedNodeFigure implements IOvalAnchorableFigure {
 
@@ -281,18 +181,6 @@ public class CustomRelationshipNode extends DNodeEditPart{
 			graphics.setForegroundColor(ColorConstants.black);
 			Rectangle area = getClientArea();
 			paintRotatedRelationship(graphics, area);
-		}
-		
-		@Override
-		protected ConnectionAnchor createConnectionAnchor(Point p) {
-			Point temp = p.getCopy();
-			translateToRelative(temp);
-			return new XYAnchor(getLocation());
-		}
-		
-		@Override
-		public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
-			return createConnectionAnchor(p);
 		}
 		
 	}
