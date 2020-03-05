@@ -23,6 +23,13 @@ public abstract class AbstractRelationshipShape implements RelationshipShape {
 				Math.sin(angle) * radius + center.preciseY());
 	}
 	
+	protected double calculateRelativeTargetAngle(Rectangle area, Point targetDirection) {
+		PrecisionPoint realtive_target = new PrecisionPoint(
+				targetDirection.preciseX() - area.preciseX(),
+				targetDirection.preciseY() - area.preciseY());
+		return Math.atan2(realtive_target.preciseY(), realtive_target.preciseX());
+	}
+	
 	protected PointList createPointList(Point... points) {
 		PointList list = new PointList(points.length);
 		for(Point p : points)
