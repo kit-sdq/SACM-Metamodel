@@ -6,6 +6,8 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.IOvalAnchorableFigure;
@@ -45,8 +47,20 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		if (view.getElement() instanceof DNode) {
 			DNodeImpl node = (DNodeImpl)view.getElement();
 			EObject target = node.getTarget();
-			if (target instanceof AssertedRelationship)
-				modelInstance = (AssertedRelationship) target;
+			if (target instanceof AssertedRelationship) {
+				modelInstance = (AssertedRelationship) target;				
+				modelInstance.eAdapters().add(new AdapterImpl() {
+					@Override
+					public void notifyChanged(org.eclipse.emf.common.notify.Notification msg) {
+						super.notifyChanged(msg);
+						System.out.println(msg);
+						if(msg.getFeature() instanceof EAttribute &&
+							((EAttribute)msg.getFeature()).getName().equals("assertionDeclaration")) {
+							refresh();
+						}
+					}
+				});
+			}
 		}
 	}
 	
