@@ -25,8 +25,8 @@ public abstract class AbstractRelationshipShape implements RelationshipShape {
 	
 	protected double calculateRelativeTargetAngle(Rectangle area, Point targetDirection) {
 		PrecisionPoint realtive_target = new PrecisionPoint(
-				targetDirection.preciseX() - area.preciseX(),
-				targetDirection.preciseY() - area.preciseY());
+				targetDirection.preciseX() - area.getCenter().preciseX(),
+				targetDirection.preciseY() - area.getCenter().preciseY());
 		return Math.atan2(realtive_target.preciseY(), realtive_target.preciseX());
 	}
 	

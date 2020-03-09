@@ -5,7 +5,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import com.sun.org.apache.bcel.internal.Const;
 
 public class AssumedRelationshipShape extends AbstractRelationshipShape {
 	
