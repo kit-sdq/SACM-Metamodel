@@ -302,6 +302,14 @@
             <edgeView name="edgeView"/>
           </ownedTools>
         </toolSections>
+        <toolSections name="Import" icon="/org.apache.batik.util.gui/org/apache/batik/util/gui/resources/comment.gif">
+          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="Import Library" candidatesExpression="aql:self.eAllContents()" multiple="true" message="Select Elements to import">
+            <element name="element"/>
+            <containerView name="containerView"/>
+            <container name="container"/>
+            <initialOperation/>
+          </ownedTools>
+        </toolSections>
         <decorationDescriptionsSet>
           <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="ID" position="NORTH_WEST" imageExpression="aql:self.renderTextLabel(self.gid.first(4).concat('..'))" tooltipExpression="feature:gid" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']"/>
           <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="CitedID" position="NORTH" preconditionExpression="aql:self.assertionDeclaration == argumentation::AssertionDeclaration::asCited" imageExpression="aql:self.renderTextLabel('Cited Package [Cited ID]')" tooltipExpression="Cited Package [Cited ID]" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']"/>
