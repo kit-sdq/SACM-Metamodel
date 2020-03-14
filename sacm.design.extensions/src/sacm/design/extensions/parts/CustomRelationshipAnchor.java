@@ -24,7 +24,8 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 	public Point getLocation(Point reference) {
 		IFigure owner = getOwner();
 		if(owner != null ) {
-			Rectangle area = owner.getBounds();
+			Rectangle area = new Rectangle(owner.getClientArea());
+			getOwner().translateToAbsolute(area);
 			PrecisionPoint target = getTargetDirectionPoint();
 			RelationshipShape s = RelationshipShapeFactory.INSTANCE.getRelationshipShape(node.getAssertionDeclaration());
 			if (isTargetAnchor)
