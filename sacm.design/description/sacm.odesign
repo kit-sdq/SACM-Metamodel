@@ -302,12 +302,16 @@
             <edgeView name="edgeView"/>
           </ownedTools>
         </toolSections>
-        <toolSections name="Import" icon="/org.apache.batik.util.gui/org/apache/batik/util/gui/resources/comment.gif">
-          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="Import Library" candidatesExpression="aql:self.eAllContents()" multiple="true" message="Select Elements to import">
+        <toolSections name="Import">
+          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="Import Library" candidatesExpression="aql:self.selectAndQueryInstance()" multiple="true" message="Select Elements to import">
             <element name="element"/>
             <containerView name="containerView"/>
             <container name="container"/>
-            <initialOperation/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="varvar" valueExpression="aql:self."/>
+              </firstModelOperations>
+            </initialOperation>
           </ownedTools>
         </toolSections>
         <decorationDescriptionsSet>
