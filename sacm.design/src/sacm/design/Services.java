@@ -23,6 +23,7 @@ import org.omg.sacm.argumentation.ArgumentGroup;
 import org.omg.sacm.argumentation.ArgumentPackage;
 import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
+import org.omg.sacm.argumentation.Claim;
 
 /**
  * The services class used by VSM.
@@ -45,6 +46,17 @@ public class Services {
 	
 	public void removeFromSources(AssertedRelationship self, EObject element) {
 		self.getSource().remove(element);
+	}
+	
+	public void removeFromMetaClaim(EObject self, EObject element) {
+		if (self instanceof Assertion) {
+			removeFromMetaClaim((Assertion)self, element);
+		}
+	}
+	
+	public void removeFromMetaClaim(Assertion self, EObject element) {
+		if (element instanceof Claim)
+			self.getMetaClaim().remove(element);
 	}
 
 	public IFigure renderTextLabel(EObject self, String text) {

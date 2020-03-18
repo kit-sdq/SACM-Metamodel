@@ -147,7 +147,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="MetaClain" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetFinderExpression="feature:metaClaim">
+        <edgeMappings name="MetaClain" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='RemoveMetaClaim']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:metaClaim">
           <style sourceArrow="OutputClosedArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -156,7 +156,7 @@
           </style>
         </edgeMappings>
         <toolSections name="Model Elements Creation">
-          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Create a new claim" name="Claim" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Create a new claim" name="Claim" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" iconPath="/sacm.design/images/icons/Claim.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -176,35 +176,35 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedInference" label="New Asserted Inference" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedInference" label="New Asserted Inference" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" iconPath="/sacm.design/images/icons/ArrowDecorator.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::AssertedInference" referenceName="argumentationElement"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedEvidence" label="New Asserted Evidence" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedEvidence" label="New Asserted Evidence" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" iconPath="/sacm.design/images/icons/ArrowDecorator.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::AssertedEvidence" referenceName="argumentationElement"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedContext" label="New Asserted Context" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedContext" label="New Asserted Context" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" iconPath="/sacm.design/images/icons/SquareArrowDecorator.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::AssertedContext" referenceName="argumentationElement"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedArtifactSupport" label="New Asserted Artifact Support" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedArtifactSupport" label="New Asserted Artifact Support" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" iconPath="/sacm.design/images/icons/ArrowDecorator.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::AssertedArtifactSupport" referenceName="argumentationElement"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedArtifactContext" label="New Asserted Artifact Context" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="AssertedArtifactContext" label="New Asserted Artifact Context" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" iconPath="/sacm.design/images/icons/NoDecorator.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -222,7 +222,7 @@
           </ownedTools>
         </toolSections>
         <toolSections name="AssertedRelationship Tools" label="Asserted Relationships">
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="SetTarget" label="Set Target" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="SetTarget" label="Set Target" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']" iconPath="/sacm.design/images/icons/SetTarget.gif">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -233,7 +233,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="AddSource" label="Add Source" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="AddSource" label="Add Source" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']" iconPath="/sacm.design/images/icons/SetSource.gif">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -244,6 +244,17 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="MetaClaim" label="Set MetaClaim" edgeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='MetaClain']" iconPath="/sacm.design/images/icons/SetMetaClaim.gif">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:source">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="metaClaim" valueExpression="aql:self.metaClaim->including(target)"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
           <ownedTools xsi:type="tool:DeleteElementDescription" name="Remove Target">
             <element name="element"/>
             <elementView name="elementView"/>
@@ -251,7 +262,6 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
                 <subModelOperations xsi:type="tool_1:Unset" featureName="target"/>
-                <subModelOperations xsi:type="tool_1:Let" valueExpression="service:sysout('tsts')"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -266,6 +276,16 @@
                     <subModelOperations xsi:type="tool_1:Let" valueExpression="aql:self.removeFromSources(element)"/>
                   </subModelOperations>
                 </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="RemoveMetaClaim">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:Let" valueExpression="aql:self.removeFromMetaClaim(self.extractTarget(elementView.targetNode))"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -303,7 +323,7 @@
           </ownedTools>
         </toolSections>
         <toolSections name="Import">
-          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="Import Library" candidatesExpression="aql:self.selectAndQueryInstance()" multiple="true" message="Select Elements to import">
+          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="ImportLibrary" label="Import from Libraray" candidatesExpression="aql:self.selectAndQueryInstance()" multiple="true" message="Select Elements to import">
             <element name="element"/>
             <containerView name="containerView"/>
             <container name="container"/>
