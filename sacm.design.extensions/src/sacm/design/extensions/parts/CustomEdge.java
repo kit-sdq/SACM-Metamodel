@@ -10,6 +10,7 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+import org.omg.sacm.argumentation.ArgumentAsset;
 import org.omg.sacm.argumentation.AssertedArtifactSupport;
 import org.omg.sacm.argumentation.AssertedContext;
 import org.omg.sacm.argumentation.AssertedEvidence;
@@ -46,6 +47,7 @@ import org.eclipse.sirius.diagram.ui.tools.api.policy.CompoundEditPolicy;
 import org.eclipse.sirius.diagram.ui.tools.internal.ui.SiriusSelectConnectionEditPartTracker;
 import org.eclipse.sirius.ui.tools.api.color.VisualBindingManager;
 
+@SuppressWarnings("restriction")
 public class CustomEdge extends AbstractDiagramEdgeEditPart {
 	
 	private ArrowDecoratorType sourceDecorationType = ArrowDecoratorType.NONE; 
@@ -63,9 +65,9 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
     	Object source = sourceNode.eGet(sourceNode.eClass().getEStructuralFeature("target"));
     	EObject targetNode = edge.getTargetNode();
     	Object target = targetNode.eGet(targetNode.eClass().getEStructuralFeature("target"));
-    	if (source instanceof AssertedRelationship && target instanceof Assertion) {
+    	if (source instanceof AssertedRelationship && target instanceof ArgumentAsset) {
     		AssertedRelationship rel = (AssertedRelationship)source;
-    		Assertion partner = (Assertion) target;
+    		ArgumentAsset partner = (ArgumentAsset) target;
     		if (rel.getTarget() != null && rel.getTarget().getGid().equals(partner.getGid())) {
     			if (rel instanceof AssertedContext || rel instanceof AssertedArtifactSupport) {
     				targetDecorationType = (rel.isIsCounter()) ?

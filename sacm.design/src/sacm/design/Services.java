@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Display;
 import org.omg.sacm.argumentation.ArgumentAsset;
 import org.omg.sacm.argumentation.ArgumentGroup;
 import org.omg.sacm.argumentation.ArgumentPackage;
+import org.omg.sacm.argumentation.ArgumentReasoning;
 import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
 import org.omg.sacm.argumentation.Claim;
@@ -49,14 +50,14 @@ public class Services {
 	}
 	
 	public void removeFromMetaClaim(EObject self, EObject element) {
-		if (self instanceof Assertion) {
-			removeFromMetaClaim((Assertion)self, element);
+		if (self instanceof Assertion && element instanceof Claim) {
+			((Assertion)self).getMetaClaim().remove(element);
 		}
 	}
 	
-	public void removeFromMetaClaim(Assertion self, EObject element) {
-		if (element instanceof Claim)
-			self.getMetaClaim().remove(element);
+	public void removeFromReasoning(EObject self, EObject element) {
+		if (element instanceof ArgumentReasoning && self instanceof AssertedRelationship)
+			((AssertedRelationship)self).setReasoning(null);
 	}
 
 	public IFigure renderTextLabel(EObject self, String text) {
@@ -103,8 +104,8 @@ public class Services {
 	public void insertCopiedElements(EObject self, Collection<EObject> copies) {
 		if (self instanceof ArgumentPackage) {
 			for(EObject e : copies) {
-				if(e instanceof Assertion) {
-					((ArgumentPackage) self).getArgumentationElement().add((Assertion)e);
+				if(e instanceof ArgumentAsset) {
+					((ArgumentPackage) self).getArgumentationElement().add((ArgumentAsset)e);
 				}
 			}
 		}
