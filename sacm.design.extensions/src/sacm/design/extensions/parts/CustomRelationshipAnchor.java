@@ -6,20 +6,19 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import sacm.design.extensions.SACMEdgeType;
 import sacm.design.extensions.parts.shapes.RelationshipShape;
 import sacm.design.extensions.parts.shapes.RelationshipShapeFactory;
 
 public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 	
 	CustomRelationshipNode node;
-	boolean isTargetAnchor;
-	boolean isArgumentReasoningAnchor;
+	SACMEdgeType sacmEdgeType;
 	
-	public CustomRelationshipAnchor(final IFigure owner, boolean isTargetAnchor, CustomRelationshipNode actualNode) {
+	public CustomRelationshipAnchor(final IFigure owner, SACMEdgeType edgeType, CustomRelationshipNode actualNode) {
         super(owner);
         this.node = actualNode;
-        this.isTargetAnchor = isTargetAnchor;
-        this.isArgumentReasoningAnchor = false;
+        this.sacmEdgeType = edgeType;
     }
 
 	@Override
@@ -30,12 +29,17 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 			getOwner().translateToAbsolute(area);
 			PrecisionPoint target = getTargetDirectionPoint();
 			RelationshipShape s = RelationshipShapeFactory.INSTANCE.getRelationshipShape(node.getAssertionDeclaration());
-			if (isArgumentReasoningAnchor) {
-				return s.getArgumentReasoningConnectionPoint(area, target, reference);
-			} else if (isTargetAnchor)
-				return s.getSourceConnectionPoint(area, target);
-			else
-				return s.getTargetConnectionPoint(area, target);
+			switch (sacmEdgeType) {
+				case META_CLAIM:
+				case ARGUMENT_REASONING:
+					return s.getArgumentReasoningConnectionPoint(area, target, reference);
+				case RELATIONSHIP_TARGET:
+					return s.getSourceConnectionPoint(area, target);				
+				case SOURCE_RELATIONSHIP:
+					return s.getTargetConnectionPoint(area, target);
+				default:
+					return s.getTargetConnectionPoint(area, target);
+			}
 		}
 		else return getReferencePoint();		
 	}
@@ -45,14 +49,6 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 		PrecisionPoint target = new PrecisionPoint(node.determineTargetDirection());
 		target.translate(getOwner().getBounds().getCenter().negate());
 		return (PrecisionPoint) target.getScaled(1.0/target.getDistance(new PrecisionPoint(0,0)));
-	}
-
-	public boolean isArgumentReasoningAnchor() {
-		return isArgumentReasoningAnchor;
-	}
-
-	public void setArgumentReasoningAnchor(boolean isArgumentReasoningAnchor) {
-		this.isArgumentReasoningAnchor = isArgumentReasoningAnchor;
 	}
 	
 }

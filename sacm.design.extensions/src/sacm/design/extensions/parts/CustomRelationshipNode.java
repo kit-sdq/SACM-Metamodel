@@ -13,7 +13,6 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.IOvalAnchorableFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DNode;
@@ -28,11 +27,11 @@ import org.eclipse.sirius.ext.gmf.runtime.gef.ui.figures.AirDefaultSizeNodeFigur
 import org.eclipse.sirius.ext.gmf.runtime.gef.ui.figures.DBorderedNodeFigure;
 import org.eclipse.sirius.ext.gmf.runtime.gef.ui.figures.util.AnchorProvider;
 import org.eclipse.sirius.viewpoint.DStylizable;
-import org.omg.sacm.argumentation.ArgumentReasoning;
 import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
 import org.omg.sacm.argumentation.AssertionDeclaration;
 
+import sacm.design.extensions.SACMEdgeType;
 import sacm.design.extensions.parts.shapes.RelationshipShape;
 import sacm.design.extensions.parts.shapes.RelationshipShapeFactory;
 
@@ -141,36 +140,26 @@ public class CustomRelationshipNode extends DNodeEditPart{
 	
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connEditPart) {
-		CustomRelationshipAnchor anchor = new CustomRelationshipAnchor(getNodeFigure(), true, this);
-		anchor.setArgumentReasoningAnchor(targetIsArgumentReasoningElement(connEditPart));
-		return anchor;
+		if(connEditPart instanceof CustomEdge)
+			return new CustomRelationshipAnchor(getNodeFigure(), ((CustomEdge) connEditPart).getSacmEdgeType(), this);
+		else 
+			return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.SOURCE_RELATIONSHIP, this);
 	}
 	
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connEditPart) {
-		return new CustomRelationshipAnchor(getNodeFigure(), false, this);
+		return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.SOURCE_RELATIONSHIP, this);
 	}
 	
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(org.eclipse.gef.Request request) {
-		return new CustomRelationshipAnchor(getNodeFigure(), false, this);
+		return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.SOURCE_RELATIONSHIP, this);
 	};
 	
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(org.eclipse.gef.Request request) {
-		return new CustomRelationshipAnchor(getNodeFigure(), true, this);
+		return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.ARGUMENT_REASONING, this);
 	};
-	
-	private boolean targetIsArgumentReasoningElement(ConnectionEditPart editPart) {
-		boolean isArgumentReasoning = false;
-		try {
-			DNode target = (DNode)((Node)editPart.getTarget().getModel()).getElement();
-			isArgumentReasoning = target.getTarget() instanceof ArgumentReasoning;
-		} catch (Exception ex) {
-	        // No exception handling, null pointer can happen
-	    }
-		return isArgumentReasoning;
-	}
 	
 	class OvalBorderedNodeFigure extends DBorderedNodeFigure implements IOvalAnchorableFigure {
 

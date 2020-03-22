@@ -19,6 +19,7 @@ import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
 import org.omg.sacm.argumentation.Claim;
 
+import sacm.design.extensions.SACMEdgeType;
 import sacm.design.extensions.SacmConstants.ArrowDecoratorType;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConnectionBendpointEditPolicy;
@@ -30,6 +31,7 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.EdgeStyle;
+import org.eclipse.sirius.diagram.description.EdgeMapping;
 import org.eclipse.sirius.diagram.impl.DEdgeImpl;
 import org.eclipse.sirius.diagram.ui.edit.api.part.AbstractDiagramEdgeEditPart;
 import org.eclipse.sirius.diagram.ui.edit.api.part.IDiagramEdgeEditPart;
@@ -51,7 +53,9 @@ import org.eclipse.sirius.ui.tools.api.color.VisualBindingManager;
 public class CustomEdge extends AbstractDiagramEdgeEditPart {
 	
 	private ArrowDecoratorType sourceDecorationType = ArrowDecoratorType.NONE; 
-	private ArrowDecoratorType targetDecorationType = ArrowDecoratorType.NONE; 
+	private ArrowDecoratorType targetDecorationType = ArrowDecoratorType.NONE;
+	
+	private SACMEdgeType sacmEdgeType = SACMEdgeType.SOURCE_RELATIONSHIP;
 
     public CustomEdge(View view) {
         super(view);
@@ -84,6 +88,12 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
     		}
     	} else if (source instanceof Assertion && target instanceof Claim) {
     		sourceDecorationType = ArrowDecoratorType.META_CLAIM;
+    	}
+    	if (edge.getActualMapping() instanceof EdgeMapping) {
+    		this.sacmEdgeType = SACMEdgeType.getFromName(((EdgeMapping)edge.getActualMapping()).getName());
+    		if(sacmEdgeType != SACMEdgeType.RELATIONSHIP_TARGET) {
+    			targetDecorationType = ArrowDecoratorType.NONE;
+    		}
     	}
     }
     
@@ -333,5 +343,9 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
 			if(getEdge().getTarget().getElement() instanceof DNode)
 				return (DNode) getEdge().getTarget().getElement();
 		return null;
+	}
+
+	public SACMEdgeType getSacmEdgeType() {
+		return sacmEdgeType;
 	}
 }
