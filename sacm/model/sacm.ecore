@@ -84,7 +84,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ImplementationConstraint" eSuperTypes="#//UtilityElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Description" eSuperTypes="#//UtilityElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ArtifactElement" abstract="true" eSuperTypes="#//SACMElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArtifactElement" abstract="true" eSuperTypes="#//ModelElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Note" eSuperTypes="#//UtilityElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="TaggedValue" eSuperTypes="#//UtilityElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="_key" eType="#//MultiLangString"
