@@ -36,5 +36,14 @@ public abstract class AbstractRelationshipShape implements RelationshipShape {
 			list.addPoint(p);
 		return list;
 	}
+	
+	@Override
+	public Point getArgumentReasoningConnectionPoint(Rectangle area, PrecisionPoint target, Point reference) {
+		double radius = 1.2 * Math.min(area.preciseWidth(), area.preciseHeight()) / 2.0;
+		double angle = Math.atan2(target.preciseY(), target.preciseX());
+		Point right = getPointAt(angle + Math.PI * .5,	radius, area);
+		Point left = getPointAt(angle - Math.PI * .5,	radius, area);
+		return (left.getDistance(reference) > right.getDistance(reference))? right : left;
+	}
 
 }

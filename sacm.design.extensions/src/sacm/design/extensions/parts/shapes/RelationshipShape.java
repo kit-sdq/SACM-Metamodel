@@ -14,4 +14,6 @@ public interface RelationshipShape {
 	public Point getSourceConnectionPoint(Rectangle area, PrecisionPoint target);
 	
 	public Point getTargetConnectionPoint(Rectangle area, PrecisionPoint target);
+	
+	public Point getArgumentReasoningConnectionPoint(Rectangle area, PrecisionPoint target, Point reference);
 }

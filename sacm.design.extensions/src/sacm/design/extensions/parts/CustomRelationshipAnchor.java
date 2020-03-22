@@ -13,13 +13,15 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 	
 	CustomRelationshipNode node;
 	boolean isTargetAnchor;
+	boolean isArgumentReasoningAnchor;
 	
 	public CustomRelationshipAnchor(final IFigure owner, boolean isTargetAnchor, CustomRelationshipNode actualNode) {
         super(owner);
         this.node = actualNode;
         this.isTargetAnchor = isTargetAnchor;
+        this.isArgumentReasoningAnchor = false;
     }
-	
+
 	@Override
 	public Point getLocation(Point reference) {
 		IFigure owner = getOwner();
@@ -28,7 +30,9 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 			getOwner().translateToAbsolute(area);
 			PrecisionPoint target = getTargetDirectionPoint();
 			RelationshipShape s = RelationshipShapeFactory.INSTANCE.getRelationshipShape(node.getAssertionDeclaration());
-			if (isTargetAnchor)
+			if (isArgumentReasoningAnchor) {
+				return s.getArgumentReasoningConnectionPoint(area, target, reference);
+			} else if (isTargetAnchor)
 				return s.getSourceConnectionPoint(area, target);
 			else
 				return s.getTargetConnectionPoint(area, target);
@@ -43,4 +47,12 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 		return (PrecisionPoint) target.getScaled(1.0/target.getDistance(new PrecisionPoint(0,0)));
 	}
 
+	public boolean isArgumentReasoningAnchor() {
+		return isArgumentReasoningAnchor;
+	}
+
+	public void setArgumentReasoningAnchor(boolean isArgumentReasoningAnchor) {
+		this.isArgumentReasoningAnchor = isArgumentReasoningAnchor;
+	}
+	
 }
