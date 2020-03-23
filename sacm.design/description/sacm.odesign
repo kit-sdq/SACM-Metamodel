@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="sacm" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="sacm" version="12.0.0.2017041100">
   <ownedViewpoints name="Argumentation">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ArgumentationDiagram" domainClass="ArgumentPackage" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ArgumentationDiagram" label="Argumentation Diagram" domainClass="ArgumentPackage" enablePopupBars="true">
       <metamodel href="http://www.omg.org/sacm/2.1#/"/>
       <metamodel href="http://www.omg.org/sacm/2.1#//argumentation"/>
       <metamodel href="http://www.omg.org/sacm/2.1#//artifact_"/>
@@ -143,7 +143,7 @@
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
-        <edgeMappings name="AssertedRelationshipToTarget" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='Remove%20Target']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArtifactReference']" targetFinderExpression="feature:target" reconnections="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='ReconnectTarget']">
+        <edgeMappings name="AssertedRelationshipToTarget" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='Remove%20Target']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArtifactReference'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArgumentReasoning']" targetFinderExpression="feature:target" reconnections="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='ReconnectTarget']">
           <style targetArrow="FillDiamond" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -151,13 +151,21 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="AssertedRelationshipFromSource" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='RemoveSource']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArtifactReference']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetFinderExpression="aql:self.eContainer().eContents()->select(s|s.oclIsKindOf(argumentation::AssertedRelationship))->select(s|s.source->includes(self))" reconnections="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='ReconnectSource']">
+        <edgeMappings name="AssertedRelationshipFromSource" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='RemoveSource']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArtifactReference'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArgumentReasoning']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetFinderExpression="aql:self.eContainer().eContents()->select(s|s.oclIsKindOf(argumentation::AssertedRelationship))->select(s|s.source->includes(self))" reconnections="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='ReconnectSource']">
           <style targetArrow="NoDecoration" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription labelSize="12">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
+          <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DNode).target.oclAsType(argumentation::AssertedRelationship).isAbstract">
+            <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <centerLabelStyleDescription labelSize="12">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="MetaClaim" deletionDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='RemoveMetaClaim']" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='AssertedRelationship']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim']" targetFinderExpression="feature:metaClaim">
           <style sourceArrow="OutputClosedArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
@@ -216,7 +224,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="New Argument Reasoning" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArgumentReasoning']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="New Argument Reasoning" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArgumentReasoning']" iconPath="/sacm.design/images/icons/ArgumentReasoning.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -321,8 +329,8 @@
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="source">
-                <subModelOperations xsi:type="tool_1:SetValue" featureName="reasoning" valueExpression="target"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:source">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="reasoning" valueExpression="var:target"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -414,6 +422,34 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
+          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="ImportPackage" label="Import from Package" candidatesExpression="aql:self.getAllPackageContents()" multiple="true" tree="true" rootExpression="aql:self.getAllPackageContents()->filter(argumentation::ArgumentPackage)" childrenExpression="aql:self.eContents()" message="Select Elements to import">
+            <element name="element"/>
+            <containerView name="containerView"/>
+            <container name="container"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="copies" valueExpression="aql:self.copySelectedElements(element)"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="AddToGroup" label="Add to Group" candidatesExpression="aql:container.eContents()->filter(argumentation::ArgumentGroup)">
+            <element name="element"/>
+            <containerView name="containerView"/>
+            <container name="container"/>
+            <initialOperation/>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:ToolDescription" name="Create new ArgumentationGroup">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.eContainer()">
+                <subModelOperations xsi:type="properties:WizardModelOperation" windowTitleExpression="Select elements to add to the new group">
+                  <pages name="SelectGroup" domainClass="argumentation::ArgumentGroup" semanticCandidateExpression="aql:self.eContents()"/>
+                  <initialOperation/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
         </toolSections>
         <decorationDescriptionsSet>
           <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="ID" position="NORTH_WEST" imageExpression="aql:if (self.assertionDeclaration == argumentation::AssertionDeclaration::asCited) then self.renderTextLabel(self.gid.first(4).concat('..')) else self.renderTextLabel(self.gid.first(8).concat('..')) endif" tooltipExpression="feature:gid" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArtifactReference'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArgumentReasoning']"/>
@@ -430,6 +466,109 @@
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@edgeMappings[name='AssertedRelationshipToTarget']/@style" attributeName="targetArrow" value="FillDiamond"/>
           </vsmElementCustomizations>
         </customization>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="AssuranceCaseDiagram" label="AssuranceCase Diagram" domainClass="AssuranceCasePackage" enablePopupBars="true">
+      <metamodel href="http://www.omg.org/sacm/2.1#/"/>
+      <metamodel href="http://www.omg.org/sacm/2.1#//argumentation"/>
+      <metamodel href="http://www.omg.org/sacm/2.1#//package"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="ArgumentPackage" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" semanticCandidatesExpression="aql:self.argumentPackage->reject(p | not p.oclIsTypeOf(argumentation::ArgumentPackage))" domainClass="argumentation::ArgumentPackage">
+          <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name.content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/packages/ArgumentPackage.svg">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="ArgumentPackageInterface" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" domainClass="argumentation::ArgumentPackageInterface">
+          <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name.content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/packages/ArgumentPackageInterface.svg">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="ArgumentPackageBinding" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" domainClass="argumentation::ArgumentPackageBinding">
+          <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name.content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/packages/ArgumentPackageBinding.svg">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="BindingEdge" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageBinding']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackage'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageBinding'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageInterface']" targetFinderExpression="feature:participantPackage">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12" showIcon="false">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="ImplementsEdge" sourceMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageInterface']" targetMapping="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackage']" targetFinderExpression="feature:implements">
+          <style sourceArrow="InputArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12" showIcon="false" labelExpression="implements">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <toolSections name="Package Tools">
+          <ownedTools xsi:type="tool:DirectEditLabel" name="editPackageName">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.name">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="en"/>
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="content" valueExpression="var:0"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackage" label="Create ArgumentPackage" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackage']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::ArgumentPackage" referenceName="argumentPackage" variableName="package">
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:package">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="sacm::LangString" referenceName="name" variableName="string">
+                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:string">
+                      <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="en"/>
+                      <subModelOperations xsi:type="tool_1:SetValue" featureName="content" valueExpression="ArgumentPackage"/>
+                    </subModelOperations>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackageBinding" label="Create ArgumentPackageBinding" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageBinding']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::ArgumentPackageBinding" referenceName="argumentPackage" variableName="package">
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:package">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="sacm::LangString" referenceName="name" variableName="string">
+                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:string">
+                      <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="en"/>
+                      <subModelOperations xsi:type="tool_1:SetValue" featureName="content" valueExpression="ArgumentPackageBinding"/>
+                    </subModelOperations>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackageInterface" label="Create ArgumentPackageInterface" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageInterface']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="argumentation::ArgumentPackageInterface" referenceName="argumentPackage" variableName="package">
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:package">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="sacm::LangString" referenceName="name" variableName="string">
+                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:string">
+                      <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="en"/>
+                      <subModelOperations xsi:type="tool_1:SetValue" featureName="content" valueExpression="ArgumentPackageInterface"/>
+                    </subModelOperations>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <decorationDescriptionsSet>
+          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="ID" position="NORTH_WEST" imageExpression="aql:self.renderTextLabel(self.gid.first(8).concat('..'))" tooltipExpression="feature:gid" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackage'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageBinding'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageInterface']"/>
+        </decorationDescriptionsSet>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="sacm.design.Services"/>

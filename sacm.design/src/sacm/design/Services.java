@@ -1,6 +1,7 @@
 package sacm.design;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,26 +11,41 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.ui.dialogs.ResourceDialog;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.sirius.diagram.impl.DNodeImpl;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.omg.sacm.SacmFactory;
+import org.omg.sacm.SacmPackage;
 import org.omg.sacm.argumentation.ArgumentAsset;
 import org.omg.sacm.argumentation.ArgumentGroup;
 import org.omg.sacm.argumentation.ArgumentPackage;
+import org.omg.sacm.argumentation.ArgumentPackageBinding;
 import org.omg.sacm.argumentation.ArgumentReasoning;
+import org.omg.sacm.argumentation.ArgumentationFactory;
+import org.omg.sacm.argumentation.ArgumentationPackage;
 import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
 import org.omg.sacm.argumentation.Claim;
+import org.omg.sacm.package_.AssuranceCasePackage;
+import org.omg.sacm.package_.PackageFactory;
 
 /**
  * The services class used by VSM.
  */
 public class Services {
+	
+	public boolean tetTEst(EObject self, EObject sndOption) {
+		return self.eAdapters() != null;
+	}
 	
 	public EObject extractSource(EObject self, EObject sourceView) {
 		if(sourceView instanceof DNodeImpl) {
@@ -89,6 +105,12 @@ public class Services {
 				.collect(Collectors.toList());
 	}
 	
+	public List<EObject> getAllPackageContents(EObject self) {
+		EObject root = EcoreUtil.getRootContainer(self);
+		return StreamSupport.stream(((Iterable<EObject>)() ->((EObject)root).eAllContents()).spliterator(), false)
+					.collect(Collectors.toList());
+	}
+	
 	public void copySelectedElements(EObject self, List<EObject> list) {
 		// TODO: recursively flat map ArgumentGroups
 		List<EObject> flatList = list.stream()
@@ -103,9 +125,37 @@ public class Services {
 	
 	public void insertCopiedElements(EObject self, Collection<EObject> copies) {
 		if (self instanceof ArgumentPackage) {
+			List<ArgumentPackage> packages = new BasicEList<ArgumentPackage>();
 			for(EObject e : copies) {
 				if(e instanceof ArgumentAsset) {
 					((ArgumentPackage) self).getArgumentationElement().add((ArgumentAsset)e);
+					if (! packages.contains(e.eContainer()) && e.eContainer() instanceof ArgumentPackage)
+						packages.add((ArgumentPackage)e.eContainer());
+				}
+			}
+			// If the ArgumentPackage and imported Packages lie within a common Package
+			// create a common Package Binding if none exists
+			if (self.eContainer() instanceof AssuranceCasePackage) {
+				AssuranceCasePackage assurancePackage = (AssuranceCasePackage)self.eContainer();
+				if (assurancePackage.getArgumentPackage().stream().
+						filter(p -> p instanceof ArgumentPackageBinding 
+						&& ((ArgumentPackageBinding)p).getParticipantPackage().equals(packages)).count() == 0) {
+					ArgumentPackageBinding binding = ArgumentationFactory.eINSTANCE.createArgumentPackageBinding();
+					binding.getParticipantPackage().addAll(packages);
+					binding.getParticipantPackage().add((ArgumentPackage)self);
+					binding.setName(SacmFactory.eINSTANCE.createLangString());
+					assurancePackage.getArgumentPackage().add(binding);
+				}				
+			} else if(self.eContainer() instanceof ArgumentPackage) {
+				ArgumentPackage argPackage = (ArgumentPackage)self.eContainer();
+				if (argPackage.getArgumentationElement().stream().
+						filter(p -> p instanceof ArgumentPackageBinding 
+						&& ((ArgumentPackageBinding)p).getParticipantPackage().equals(packages)).count() == 0) {
+					ArgumentPackageBinding binding = ArgumentationFactory.eINSTANCE.createArgumentPackageBinding();
+					binding.getParticipantPackage().addAll(packages);
+					binding.getParticipantPackage().add((ArgumentPackage)self);
+					binding.setName(SacmFactory.eINSTANCE.createLangString());
+					argPackage.getArgumentationElement().add(binding);
 				}
 			}
 		}
