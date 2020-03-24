@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="sacm" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="sacm" version="12.0.0.2017041100">
   <ownedViewpoints name="Argumentation">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ArgumentationDiagram" label="Argumentation Diagram" domainClass="ArgumentPackage" enablePopupBars="true">
       <metamodel href="http://www.omg.org/sacm/2.1#/"/>
@@ -283,7 +283,7 @@
             <mask mask="{0}"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.content.value->first()">
-                <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="xxx"/>
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="lang" valueExpression="en"/>
                 <subModelOperations xsi:type="tool_1:SetValue" featureName="content" valueExpression="var:0"/>
               </firstModelOperations>
             </initialOperation>
@@ -432,24 +432,6 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool_1:SelectionWizardDescription" name="AddToGroup" label="Add to Group" candidatesExpression="aql:container.eContents()->filter(argumentation::ArgumentGroup)">
-            <element name="element"/>
-            <containerView name="containerView"/>
-            <container name="container"/>
-            <initialOperation/>
-          </ownedTools>
-          <ownedTools xsi:type="tool_1:ToolDescription" name="Create new ArgumentationGroup">
-            <element name="element"/>
-            <elementView name="elementView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.eContainer()">
-                <subModelOperations xsi:type="properties:WizardModelOperation" windowTitleExpression="Select elements to add to the new group">
-                  <pages name="SelectGroup" domainClass="argumentation::ArgumentGroup" semanticCandidateExpression="aql:self.eContents()"/>
-                  <initialOperation/>
-                </subModelOperations>
-              </firstModelOperations>
-            </initialOperation>
-          </ownedTools>
         </toolSections>
         <decorationDescriptionsSet>
           <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="ID" position="NORTH_WEST" imageExpression="aql:if (self.assertionDeclaration == argumentation::AssertionDeclaration::asCited) then self.renderTextLabel(self.gid.first(4).concat('..')) else self.renderTextLabel(self.gid.first(8).concat('..')) endif" tooltipExpression="feature:gid" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='Claim'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArtifactReference'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']/@defaultLayer/@nodeMappings[name='ArgumentReasoning']"/>
@@ -473,19 +455,19 @@
       <metamodel href="http://www.omg.org/sacm/2.1#//argumentation"/>
       <metamodel href="http://www.omg.org/sacm/2.1#//package"/>
       <defaultLayer name="Default">
-        <nodeMappings name="ArgumentPackage" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" semanticCandidatesExpression="aql:self.argumentPackage->reject(p | not p.oclIsTypeOf(argumentation::ArgumentPackage))" domainClass="argumentation::ArgumentPackage">
+        <nodeMappings name="ArgumentPackage" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" semanticCandidatesExpression="aql:self.argumentPackage->reject(p | not p.oclIsTypeOf(argumentation::ArgumentPackage))" doubleClickDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='OpenOrCreateDiagram']" domainClass="argumentation::ArgumentPackage">
           <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name.content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/packages/ArgumentPackage.svg">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="ArgumentPackageInterface" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" domainClass="argumentation::ArgumentPackageInterface">
+        <nodeMappings name="ArgumentPackageInterface" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" doubleClickDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='OpenOrCreateDiagram']" domainClass="argumentation::ArgumentPackageInterface">
           <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name.content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/packages/ArgumentPackageInterface.svg">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="ArgumentPackageBinding" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" domainClass="argumentation::ArgumentPackageBinding">
+        <nodeMappings name="ArgumentPackageBinding" labelDirectEdit="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='editPackageName']" doubleClickDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='OpenOrCreateDiagram']" domainClass="argumentation::ArgumentPackageBinding">
           <style xsi:type="style:WorkspaceImageDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name.content" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/sacm.design/images/packages/ArgumentPackageBinding.svg">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -517,7 +499,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackage" label="Create ArgumentPackage" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackage']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackage" label="Create ArgumentPackage" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackage']" iconPath="/sacm.design/images/icons/ArgumentPackage.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -533,7 +515,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackageBinding" label="Create ArgumentPackageBinding" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageBinding']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackageBinding" label="Create ArgumentPackageBinding" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageBinding']" iconPath="/sacm.design/images/icons/ArgumentPackageBinding.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -549,7 +531,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackageInterface" label="Create ArgumentPackageInterface" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageInterface']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="ArgumentPackageInterface" label="Create ArgumentPackageInterface" nodeMappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageInterface']" iconPath="/sacm.design/images/icons/ArgumentPackageInterface.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -563,6 +545,13 @@
                   </subModelOperations>
                 </subModelOperations>
               </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="OpenOrCreateDiagram" mappings="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageBinding'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackage'] //@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='AssuranceCaseDiagram']/@defaultLayer/@nodeMappings[name='ArgumentPackageInterface']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='Argumentation']/@ownedRepresentations[name='ArgumentationDiagram']"/>
             </initialOperation>
           </ownedTools>
         </toolSections>

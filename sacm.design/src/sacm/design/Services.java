@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.sirius.diagram.impl.DNodeImpl;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.omg.sacm.LangString;
 import org.omg.sacm.SacmFactory;
 import org.omg.sacm.argumentation.ArgumentAsset;
 import org.omg.sacm.argumentation.ArgumentGroup;
@@ -35,10 +36,6 @@ import org.omg.sacm.package_.AssuranceCasePackage;
  * The services class used by VSM.
  */
 public class Services {
-	
-	public boolean tetTEst(EObject self, EObject sndOption) {
-		return self.eAdapters() != null;
-	}
 	
 	public EObject extractSource(EObject self, EObject sourceView) {
 		if(sourceView instanceof DNodeImpl) {
@@ -136,11 +133,10 @@ public class Services {
 				List<ArgumentPackage> existingBindings = assurancePackage.getArgumentPackage().stream()
 						.filter(p -> p instanceof ArgumentPackageBinding)
 						.map(p -> (ArgumentPackageBinding)p)
-						.filter(p -> packages.containsAll(p.getArgumentationElement())).collect(Collectors.toList());
+						.filter(p -> packages.containsAll(p.getArgumentationElement()) 
+								&& p.getArgumentationElement().containsAll(packages)).collect(Collectors.toList());
 				if (existingBindings.size() == 0) {
-					ArgumentPackageBinding binding = ArgumentationFactory.eINSTANCE.createArgumentPackageBinding();
-					binding.getParticipantPackage().addAll(packages);
-					binding.setName(SacmFactory.eINSTANCE.createLangString());
+					ArgumentPackageBinding binding = createBinding(packages);
 					assurancePackage.getArgumentPackage().add(binding);
 				}				
 			} else if(self.eContainer() instanceof ArgumentPackage) {
@@ -148,14 +144,23 @@ public class Services {
 				List<ArgumentPackage> existingBindings = argPackage.getArgumentationElement().stream()
 						.filter(p -> p instanceof ArgumentPackageBinding)
 						.map(p -> (ArgumentPackageBinding)p)
-						.filter(p -> packages.containsAll(p.getArgumentationElement())).collect(Collectors.toList());
+						.filter(p -> packages.containsAll(p.getArgumentationElement()) 
+								&& p.getArgumentationElement().containsAll(packages)).collect(Collectors.toList());
 				if (existingBindings.size() == 0) {
-					ArgumentPackageBinding binding = ArgumentationFactory.eINSTANCE.createArgumentPackageBinding();
-					binding.getParticipantPackage().addAll(packages);
-					binding.setName(SacmFactory.eINSTANCE.createLangString());
+					ArgumentPackageBinding binding = createBinding(packages);
 					argPackage.getArgumentationElement().add(binding);
 				}
 			}
 		}
-	}	
+	}
+	
+	private ArgumentPackageBinding createBinding(Collection<ArgumentPackage> packages) {
+		ArgumentPackageBinding binding = ArgumentationFactory.eINSTANCE.createArgumentPackageBinding();
+		LangString name = SacmFactory.eINSTANCE.createLangString();
+		name.setLang("en");
+		name.setContent("Binding   ");
+		binding.getParticipantPackage().addAll(packages);
+		binding.setName(name);
+		return binding;
+	}
 }
