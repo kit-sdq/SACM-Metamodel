@@ -19,7 +19,7 @@ import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
 import org.omg.sacm.argumentation.Claim;
 
-import sacm.design.extensions.SACMEdgeType;
+import sacm.design.extensions.SacmConstants.SACMEdgeType;
 import sacm.design.extensions.SacmConstants.ArrowDecoratorType;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConnectionBendpointEditPolicy;
@@ -49,15 +49,26 @@ import org.eclipse.sirius.diagram.ui.tools.api.policy.CompoundEditPolicy;
 import org.eclipse.sirius.diagram.ui.tools.internal.ui.SiriusSelectConnectionEditPartTracker;
 import org.eclipse.sirius.ui.tools.api.color.VisualBindingManager;
 
+/**
+ * Custom Sirius edge implementation for the SACM Metamodel Editor, allowing a custom realization of multiple arrow decorators and Edge
+ * types such as: AssertedRelationships and MetaClaims.
+ * 
+ * This class contains a number of obligatory routines necessary for Sirius to work correctly that were mostly taken straight from the 
+ * {@link org.eclipse.sirius.diagram.ui.internal.edit.parts.DEdgeEditPart} implementation of the Sirius implementation. This is necessary because these implementations are not part of the 
+ * Sirius api but needed for Sirius to display the editPart correctly. 
+ * 
+ * @author Fabian Scheytt
+ *
+ */
 @SuppressWarnings("restriction")
-public class CustomEdge extends AbstractDiagramEdgeEditPart {
+public class CustomSACMEdge extends AbstractDiagramEdgeEditPart {
 	
 	private ArrowDecoratorType sourceDecorationType = ArrowDecoratorType.NONE; 
 	private ArrowDecoratorType targetDecorationType = ArrowDecoratorType.NONE;
 	
 	private SACMEdgeType sacmEdgeType = SACMEdgeType.SOURCE_RELATIONSHIP;
 
-    public CustomEdge(View view) {
+    public CustomSACMEdge(View view) {
         super(view);
         if(view.getElement() instanceof DEdge)
         	refreshDecoratorTypes((DEdge) view.getElement());
@@ -98,7 +109,9 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
     }
     
     @Override
-    public void refreshTargetDecoration() {    	
+    public void refreshTargetDecoration() {
+    	// Called before each draw call to the target decoration. Good place to check if the TargetDecorator has changed
+    	// and adapt it in the PolylineConnectionFigure of this edge.
     	if (!DiagramEdgeEditPartOperation.isSelected(this) && !DiagramEdgeEditPartOperation.isLabelSelected(this)) {
             final EObject diagramElement = this.resolveSemanticElement();            
             if (diagramElement instanceof DEdge) {
@@ -111,6 +124,8 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
     
     @Override
     public void refreshSourceDecoration() {
+    	// Called before each draw call to the source decoration. Good place to check if the SourceDecorator has changed
+    	// and adapt it in the PolylineConnectionFigure of this edge.
     	if (!DiagramEdgeEditPartOperation.isSelected(this) && !DiagramEdgeEditPartOperation.isLabelSelected(this)) {
             final EObject diagramElement = this.resolveSemanticElement();
             if (diagramElement instanceof DEdge) {
@@ -221,6 +236,7 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
 
     @Override
     protected void createDefaultEditPolicies() {
+    	// Custom edit policies similar to {DEdgeEditPart}
         super.createDefaultEditPolicies();
         removeEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE);
         removeEditPolicy(EditPolicy.COMPONENT_ROLE);
@@ -232,6 +248,12 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
         installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new DEdgeItemSemanticEditPolicy());
     }
 
+    /**
+     * Has to be implemented for Sirius label compatibility.
+     * See {@link org.eclipse.sirius.diagram.ui.internal.edit.parts.DEdgeEditPart} for references
+     * @param childEditPart
+     * @return
+     */
     protected boolean addFixedChild(EditPart childEditPart) {
         if (childEditPart instanceof DEdgeNameEditPart) {
             ((DEdgeNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureViewEdgeNameFigure());
@@ -248,6 +270,10 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
         return false;
     }
 
+    /**
+     * Has to be implemented for Sirius label compatibility.
+     * See {@link org.eclipse.sirius.diagram.ui.internal.edit.parts.DEdgeEditPart} for references
+     */
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         if (addFixedChild(childEditPart)) {
@@ -283,6 +309,9 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
     /**
      * Override to install the specific connection bendpoints EditPolicy to
      * correctly handle tree router.
+     * 
+     * Has to be implemented for Sirius label compatibility.
+     * See {@link org.eclipse.sirius.diagram.ui.internal.edit.parts.DEdgeEditPart} for references
      */
     @Override
     public void installEditPolicy(Object key, EditPolicy editPolicy) {
@@ -303,41 +332,11 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
     public DragTracker getDragTracker(Request req) {
         return new SiriusSelectConnectionEditPartTracker(this);
     }
-    
-    class CustomViewEdgeFigure extends ViewEdgeFigure {
-    	/*
-    	@Override @SuppressWarnings({ "deprecation", "restriction" })
-        public void paintFigure(final Graphics graphics) {
-            if (!isActive()) {
-                return;
-            }
-            final EObject element = resolveSemanticElement();
-            if (element != null && DEdge.class.isInstance(element)) {
-                final DEdge viewEdge = (DEdge) element;
-                DDiagram diagram = viewEdge.getParentDiagram();
-                if ((!viewEdge.isIsMockEdge() && viewEdge.isVisible()) || (diagram != null && diagram.isIsInShowingMode())) {
-                    ShowingViewUtil.initGraphicsForVisibleAndInvisibleElements(this, graphics, (View) getModel());
-                    try {
-                        super.paintFigure(graphics);
-                        
-                        //graphics.setForegroundColor(ColorConstants{0, 120, 215, 255});
-                        graphics.setBackgroundColor(ColorConstants.black);
-                        graphics.setLineWidth(5);
-                        Point c = bounds.getCenter();
-                        graphics.fillOval(c.x - 5,
-                        		c.y - 5,
-                        		10,
-                        		10);
-                        graphics.restoreState();
-                    } finally {
-                        graphics.popState();
-                    }
-                }
-            }
-        }
-    	*/    	
-    }
 
+    /**
+     * Determines the target Sirius node model element of the edge part and returns it.
+     * @return Sirius DNode of the part or else null if none exists or the model is of another super type.
+     */
 	public DNode getTargetEditPart() {
 		if (getEdge() instanceof Edge && getEdge().getTarget() instanceof Node)
 			if(getEdge().getTarget().getElement() instanceof DNode)
@@ -345,6 +344,10 @@ public class CustomEdge extends AbstractDiagramEdgeEditPart {
 		return null;
 	}
 
+	/**
+	 * SACM edge type of this edge instance.
+	 * @return SACMEdgeType
+	 */
 	public SACMEdgeType getSacmEdgeType() {
 		return sacmEdgeType;
 	}

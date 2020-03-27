@@ -31,25 +31,31 @@ import org.omg.sacm.argumentation.AssertedRelationship;
 import org.omg.sacm.argumentation.Assertion;
 import org.omg.sacm.argumentation.AssertionDeclaration;
 
-import sacm.design.extensions.SACMEdgeType;
+import sacm.design.extensions.SacmConstants.SACMEdgeType;
 import sacm.design.extensions.parts.shapes.RelationshipShape;
 import sacm.design.extensions.parts.shapes.RelationshipShapeFactory;
 
-
+/**
+ * Custom Sirius node implementation for the SACM Metamodel Editor, allowing a custom realization of  different <b>rotatable</b> node shapes
+ * for the AssertedRelationship SACM type.
+ * 
+ * @author Fabian Scheytt
+ *
+ */
 @SuppressWarnings("restriction")
 public class CustomRelationshipNode extends DNodeEditPart{
 	
 	private AssertedRelationship modelInstance = null;
 
-	private NodeFigure nodePlate;
-
 	public CustomRelationshipNode(View view) {
 		super(view);
+		// Determine the AssertedRelationship model instance set upon creation.
 		if (view.getElement() instanceof DNode) {
 			DNodeImpl node = (DNodeImpl)view.getElement();
 			EObject target = node.getTarget();
 			if (target instanceof AssertedRelationship) {
-				modelInstance = (AssertedRelationship) target;				
+				modelInstance = (AssertedRelationship) target;
+				// Setup node refresh upon assertionDeclaration change notification
 				modelInstance.eAdapters().add(new AdapterImpl() {
 					@Override
 					public void notifyChanged(org.eclipse.emf.common.notify.Notification msg) {
@@ -65,6 +71,10 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		}
 	}
 	
+	/**
+	 * Determine AssertionDeclaration of the respective AssertedRelationship of this node
+	 * @return current state of thed AssertionDeclaration
+	 */
 	AssertionDeclaration getAssertionDeclaration() {
 		if(getModel() instanceof View) {
 			View model = (View) getModel();
@@ -78,92 +88,81 @@ public class CustomRelationshipNode extends DNodeEditPart{
 		return AssertionDeclaration.ASSERTED;
 	}
 	
-	@Override
-	protected NodeFigure createNodePlate() {
-        DefaultSizeNodeFigure result = new AirDefaultSizeNodeFigure(10, 10, null);
-        final EObject eObj = resolveSemanticElement();
-        if (eObj instanceof DStylizable && eObj instanceof DDiagramElement) {
-            final DStylizable viewNode = (DStylizable) eObj;
-            final StyleConfiguration styleConfiguration = IStyleConfigurationRegistry.INSTANCE.getStyleConfiguration(((DDiagramElement) eObj).getDiagramElementMapping(), viewNode.getStyle());
-            final AnchorProvider anchorProvider = styleConfiguration.getAnchorProvider();
-            result = new AirDefaultSizeNodeFigure(getMapMode().DPtoLP(5), getMapMode().DPtoLP(5), anchorProvider);
-            nodePlate = result;
-        }
-        return result;
-    }
-	
-	@Override
-	public IFigure getNodePlate() {
-        return nodePlate;
-    }
-	
-	@Override
-    public void activate() {
-        if (nodePlate instanceof AirDefaultSizeNodeFigure)
-            ((AirDefaultSizeNodeFigure) nodePlate).setZoomManager(getZoomManager());
-        super.activate();
-    }
-	
-	@Override
-    public void deactivate() {
-        super.deactivate();
-        if (nodePlate instanceof AirDefaultSizeNodeFigure)
-            ((AirDefaultSizeNodeFigure) nodePlate).setZoomManager(null);
-    }
-	
 	 @Override
     protected NodeFigure createNodeFigure() {		 
-		DBorderedNodeFigure nodeFigure = new OvalBorderedNodeFigure(createMainFigure());
+		DBorderedNodeFigure nodeFigure = new SACMBorderedNodeFigure(createMainFigure());
         nodeFigure.getBorderItemContainer().add(new FoldingToggleImageFigure(this));
         nodeFigure.getBorderItemContainer().setClippingStrategy(new FoldingToggleAwareClippingStrategy());
         return nodeFigure;
     }
 
+	/**
+	 * Paint relationship node based on current AssertionDeclaration selection
+	 * 
+	 * @param graphics eclipse draw2D api
+	 * @param area client area to draw on
+	 */
     protected void paintRotatedRelationship(Graphics graphics, Rectangle area) {
     	RelationshipShape s = RelationshipShapeFactory.INSTANCE.getRelationshipShape(getAssertionDeclaration());
     	s.paint(graphics, area, determineTargetDirection());		
 	}
 
+    /**
+     * Determines the direction of the edge from this node to the AssertedRelationship.target node.
+     * @return target direction or in case of no target: direction = right
+     */
 	public Point determineTargetDirection() {
 		if(sourceConnections != null) {
 			for (Object o : sourceConnections) {
-				if (o instanceof CustomEdge) {
-					CustomEdge edge = (CustomEdge) o;
+				if (o instanceof CustomSACMEdge) {
+					CustomSACMEdge edge = (CustomSACMEdge) o;
 					if (edge.getTargetEditPart().getTarget().equals(modelInstance.getTarget())) {
 						return edge.getConnectionFigure().getPoints().getPoint(1);
 					}
 				}
 			}
 		}
-		return new Point(0,0);
+		return new Point(0,1);
 	}
 	
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connEditPart) {
-		if(connEditPart instanceof CustomEdge)
-			return new CustomRelationshipAnchor(getNodeFigure(), ((CustomEdge) connEditPart).getSacmEdgeType(), this);
+		// Connect custom SACM edges regarding to their type and all other edges as SACM source edges.
+		if(connEditPart instanceof CustomSACMEdge)
+			return new CustomRelationshipAnchor(getNodeFigure(), ((CustomSACMEdge) connEditPart).getSacmEdgeType(), this);
 		else 
 			return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.SOURCE_RELATIONSHIP, this);
 	}
 	
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connEditPart) {
+		// Connect all edges leading <b>to</b> the node always to the SACM source anchor.
 		return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.SOURCE_RELATIONSHIP, this);
 	}
 	
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(org.eclipse.gef.Request request) {
+		// Only the request for connecting a edge, not the final connection anchor.
 		return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.SOURCE_RELATIONSHIP, this);
 	};
 	
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(org.eclipse.gef.Request request) {
+		// Only the request for connecting a edge, not the final connection anchor.
 		return new CustomRelationshipAnchor(getNodeFigure(), SACMEdgeType.ARGUMENT_REASONING, this);
 	};
 	
-	class OvalBorderedNodeFigure extends DBorderedNodeFigure implements IOvalAnchorableFigure {
+	/**
+	 * Custom NodeFigure for SACM AssertedRelationships. This implementation provides a custom paint
+	 * routine that ignores the draw duties specified in the Sirius model but instead draws the custom
+	 * SACM relationship nodes in the given client area of the node.
+	 * 
+	 * @author Fabian Scheytt
+	 *
+	 */
+	class SACMBorderedNodeFigure extends DBorderedNodeFigure implements IOvalAnchorableFigure {
 
-		public OvalBorderedNodeFigure(IFigure mainFigure) {
+		public SACMBorderedNodeFigure(IFigure mainFigure) {
 			super(mainFigure);
 		}
 
@@ -185,10 +184,7 @@ public class CustomRelationshipNode extends DNodeEditPart{
 			
 			try {
 				paintRotatedClientArea(graphics);
-				//paintFigure(graphics);
-				graphics.restoreState();    				
-				//paintClientArea(graphics);
-				//paintBorder(graphics);
+				graphics.restoreState();
 			} finally {
 				graphics.popState();
 			}

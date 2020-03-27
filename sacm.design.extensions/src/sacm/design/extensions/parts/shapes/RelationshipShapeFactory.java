@@ -5,15 +5,28 @@ import java.util.Map;
 
 import org.omg.sacm.argumentation.AssertionDeclaration;
 
+/**
+ * Factory for the different SACM RelationshipShapes.
+ * RelationshipShapes are regarded as Singletons and only instantiated on first use to avoid
+ * unnecessary instantiation on each draw call and for each different node. 
+ * 
+ * @author Fabian Scheytt
+ *
+ */
 public enum RelationshipShapeFactory {
 	INSTANCE;
 	
-	Map<AssertionDeclaration, RelationshipShape> shapes;
+	private Map<AssertionDeclaration, RelationshipShape> shapes;
 	
 	private RelationshipShapeFactory() {
 		shapes = new EnumMap<>(AssertionDeclaration.class);
 	}
 	
+	/**
+	 * Create a RelationshipShape fitting for the given AssertionDeclaration type
+	 * @param type
+	 * @return RelationshipShape
+	 */
 	public RelationshipShape getRelationshipShape(AssertionDeclaration type) {
 		return shapes.computeIfAbsent(type, (t) -> createRelationshipShape(t));		
 	}

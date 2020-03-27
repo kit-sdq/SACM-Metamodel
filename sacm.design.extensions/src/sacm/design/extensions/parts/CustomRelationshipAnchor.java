@@ -6,14 +6,21 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import sacm.design.extensions.SACMEdgeType;
+import sacm.design.extensions.SacmConstants.SACMEdgeType;
 import sacm.design.extensions.parts.shapes.RelationshipShape;
 import sacm.design.extensions.parts.shapes.RelationshipShapeFactory;
 
+/**
+ * Customized ConnectionAcnhor implementation for the SACMRelationshipNodes. This Anchor regards the different
+ * RelationshipShape implementations and generates anchor points based on edge type and shape type.
+ * 
+ * @author Fabian Scheytt
+ *
+ */
 public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 	
-	CustomRelationshipNode node;
-	SACMEdgeType sacmEdgeType;
+	private CustomRelationshipNode node;
+	private SACMEdgeType sacmEdgeType;
 	
 	public CustomRelationshipAnchor(final IFigure owner, SACMEdgeType edgeType, CustomRelationshipNode actualNode) {
         super(owner);
@@ -23,6 +30,7 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 
 	@Override
 	public Point getLocation(Point reference) {
+		// Determine anchor point from the respective shape implementation of the current node
 		IFigure owner = getOwner();
 		if(owner != null ) {
 			Rectangle area = new Rectangle(owner.getClientArea());
@@ -44,6 +52,10 @@ public class CustomRelationshipAnchor extends AbstractConnectionAnchor{
 		else return getReferencePoint();		
 	}
 	
+	/**
+	 * Determine direction to the target node of the AssertedRelationship.
+	 * @return <b>Normalized</b> target direction
+	 */
 	private PrecisionPoint getTargetDirectionPoint(){
 		if(node == null) return new PrecisionPoint();
 		PrecisionPoint target = new PrecisionPoint(node.determineTargetDirection());

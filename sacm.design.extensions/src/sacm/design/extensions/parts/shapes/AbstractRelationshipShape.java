@@ -4,7 +4,11 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
-
+/**
+ * Implementation of the default behavior and utility routines for RelationshipShapes.
+ * @author Fabian Scheytt
+ *
+ */
 public abstract class AbstractRelationshipShape implements RelationshipShape {
 
 	/**
@@ -13,7 +17,7 @@ public abstract class AbstractRelationshipShape implements RelationshipShape {
 	 * @param angle
 	 * @param radius
 	 * @param area
-	 * @return 
+	 * @return point on a circular orbit
 	 */
 	protected Point getPointAt(double angle, double radius, Rectangle area) {
 		if(area == null) return new Point(0,0);
@@ -23,6 +27,13 @@ public abstract class AbstractRelationshipShape implements RelationshipShape {
 				Math.sin(angle) * radius + center.preciseY());
 	}
 	
+	/**
+	 * Normalizes a given targetDirection that is specific on the Relationship's position and 
+	 * determines the angle toward the direction.
+	 * @param area
+	 * @param targetDirection
+	 * @return direction angle
+	 */
 	protected double calculateRelativeTargetAngle(Rectangle area, Point targetDirection) {
 		PrecisionPoint realtive_target = new PrecisionPoint(
 				targetDirection.preciseX() - area.getCenter().preciseX(),
@@ -30,6 +41,11 @@ public abstract class AbstractRelationshipShape implements RelationshipShape {
 		return Math.atan2(realtive_target.preciseY(), realtive_target.preciseX());
 	}
 	
+	/**
+	 * Takes a number of points and returns a {@link org.eclipse.draw2d.geometry.PointList.PointList}
+	 * @param points
+	 * @return PointList of given points
+	 */
 	protected PointList createPointList(Point... points) {
 		PointList list = new PointList(points.length);
 		for(Point p : points)
