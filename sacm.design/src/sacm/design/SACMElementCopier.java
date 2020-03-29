@@ -8,6 +8,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.omg.sacm.SACMElement;
 import org.omg.sacm.SacmPackage;
 
+/**
+ * Custom implementation of the EcoreUtil Copier. This implementation generates a new UUID for
+ * each object during copying and modifies the isCitation and citedElement elements for 
+ * SACM conformity. 
+ * @author Fabian Scheytt
+ *
+ */
 public class SACMElementCopier extends Copier {
 
 	private static final long serialVersionUID = -8257392934910701678L;

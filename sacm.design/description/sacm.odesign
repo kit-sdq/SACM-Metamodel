@@ -561,5 +561,6 @@
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="sacm.design.Services"/>
+    <ownedJavaExtensions qualifiedClassName="sacm.design.ImportSACMServices"/>
   </ownedViewpoints>
 </description:Group>
