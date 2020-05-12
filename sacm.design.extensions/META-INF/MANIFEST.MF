@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: sacm.design.extensions;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: %providerName
+Automatic-Module-Name: sacm.design.extensions
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: org.eclipse.gmf.runtime.diagram.ui,
+ org.eclipse.sirius.diagram,
+ sacm,
+ org.eclipse.sirius.diagram.ui
+Bundle-ActivationPolicy: lazy

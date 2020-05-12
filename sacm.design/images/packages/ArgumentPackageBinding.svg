@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="227.2861"
+   height="124.14668"
+   version="1.1"
+   viewBox="2266.903 503.5388 227.28611 124.14669"
+   id="svg35"
+   sodipodi:docname="ArgumentPackageBinding.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata39">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview37"
+     showgrid="false"
+     inkscape:zoom="1.5067619"
+     inkscape:cx="-195.29762"
+     inkscape:cy="62.373329"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g32"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0.6" />
+  <defs
+     id="defs2" />
+  <g
+     id="layer1"
+     transform="translate(-2.5000762,-2.4999878)">
+    <g
+       id="g32">
+      <g
+         id="g8">
+        <g
+           id="g6">
+          <rect
+             x="2283.9741"
+             y="523.08917"
+             width="198.4252"
+             height="105.9963"
+             id="rect4"
+             style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </g>
+      <line
+         x1="2440.186"
+         y1="523.40179"
+         x2="2440.186"
+         y2="628.89618"
+         id="line10"
+         style="opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+      <line
+         x1="2482.8"
+         y1="576.32147"
+         x2="2440.03"
+         y2="576.32147"
+         id="line12"
+         style="opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         x="2269.9031"
+         y="506.53879"
+         width="226.2861"
+         height="16.528431"
+         id="rect14"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+      <g
+         id="g20">
+        <circle
+           cx="2461.603"
+           cy="609.9137"
+           id="ellipse16"
+           r="10.51052"
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+        <circle
+           cx="2461.373"
+           cy="596.22382"
+           id="ellipse18"
+           r="10.51052"
+           style="opacity:1;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+      </g>
+      <g
+         id="g26">
+        <g
+           id="g24">
+          <rect
+             x="2446.314"
+             y="542.07159"
+             width="30.27597"
+             height="16.172939"
+             id="rect22"
+             style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
