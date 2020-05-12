@@ -5,7 +5,7 @@ Bundle-SymbolicName: sacm.design.extensions;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: %providerName
 Automatic-Module-Name: sacm.design.extensions
-Bundle-RequiredExecutionEnvironment: JavaSE-13
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.sirius.diagram,
  sacm,
